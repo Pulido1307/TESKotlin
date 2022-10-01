@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="10dp"
+        app:cardCornerRadius="10dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.499">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:baselineAligned="false"
+                android:orientation="horizontal"
+                android:weightSum="1">
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.20"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:id="@+id/imageView_FotoPerfil_ItemCP"
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
+                        android:layout_marginTop="10dp"
+                        android:contentDescription="@string/todo"
+                        app:srcCompat="@drawable/ic_baseline_account_circle_24" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.40"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/textView_Nombre_ItemCP"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginBottom="5dp"
+                        android:gravity="start"
+                        android:text="@string/nombre_contrato_pendiente"
+                        android:textColor="@color/black"
+                        android:textSize="16sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/textView_DescrServicioCP"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="5dp"
+                        android:gravity="start"
+                        android:text="@string/reparacion"
+                        android:textColor="@color/black"
+                        android:textSize="11sp"
+                        android:textStyle="italic" />
+
+                    <TextView
+                        android:id="@+id/textView_Fecha_ItemCP"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="5dp"
+                        android:gravity="start"
+                        android:text="@string/date_contrato_pendiente"
+                        android:textColor="@color/black"
+                        android:textSize="11sp"
+                        android:textStyle="italic" />
+
+                    <TextView
+                        android:id="@+id/textView_Costo_ItemCP"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="10dp"
+                        android:gravity="start"
+                        android:text="@string/precio_contrato_pendiente"
+                        android:textColor="@color/black"
+                        android:textSize="11sp"
+                        android:textStyle="italic" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.40"
+                    android:orientation="vertical">
+
+                    <ImageButton
+                        android:id="@+id/imageButton_Mensaje_ItemCP"
+                        tools:ignore="TouchTargetSizeCheck,SpeakableTextPresentCheck,ImageContrastCheck,DuplicateSpeakableTextCheck"
+                        android:layout_width="48dp"
+                        android:layout_height="48dp"
+                        android:layout_gravity="end"
+                        android:layout_marginTop="40dp"
+                        android:layout_marginEnd="20dp"
+                        android:background="@drawable/roundcorner2"
+                        android:contentDescription="@string/todo"
+                        app:srcCompat="@drawable/ic_baseline_chat_bubble_outline_24" />
+
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                android:weightSum="1">
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/materialButton_Aceptar_ItemCP"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginEnd="5dp"
+                    android:layout_marginBottom="10dp"
+                    android:layout_weight="0.5"
+                    android:backgroundTint="@color/principal_yellow"
+                    android:text="@string/aceptar"
+                    android:textColor="@color/black"
+                    android:textStyle="bold|italic"
+                    app:cornerRadius="5dp">
+
+                </com.google.android.material.button.MaterialButton>
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/materialButton_Rechazar_ItemCP"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginEnd="5dp"
+                    android:layout_marginBottom="10dp"
+                    android:layout_weight="0.5"
+                    android:backgroundTint="@color/principal_yellow"
+                    android:text="@string/rechazar"
+                    android:textColor="@color/black"
+                    android:textStyle="bold|italic"
+                    app:cornerRadius="5dp">
+
+                </com.google.android.material.button.MaterialButton>
+
+            </LinearLayout>
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+</LinearLayout>
