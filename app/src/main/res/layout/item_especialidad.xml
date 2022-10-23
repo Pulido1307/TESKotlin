@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical">
@@ -29,13 +30,13 @@
 
             <ImageView
                 android:id="@+id/imageView_Especialidad"
-                tools:ignore="ImageContrastCheck"
                 android:layout_width="0dp"
                 android:layout_height="150dp"
                 android:layout_margin="10dp"
                 android:layout_weight="0.60"
                 android:contentDescription="@string/todo"
-                app:srcCompat="@drawable/placheholder" />
+                app:srcCompat="@drawable/placheholder"
+                tools:ignore="ImageContrastCheck" />
 
             <LinearLayout
                 android:layout_width="0dp"

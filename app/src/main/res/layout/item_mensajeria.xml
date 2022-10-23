@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
@@ -76,17 +77,18 @@
 
                     <ImageButton
                         android:id="@+id/imageButton_Mensaje_ItemMensajeria"
-                        tools:ignore="ImageContrastCheck"
+
                         android:layout_width="48dp"
                         android:layout_height="48dp"
                         android:layout_gravity="fill_horizontal|center_vertical"
-                        android:layout_marginLeft="10dp"
+                        android:layout_marginStart="10dp"
                         android:layout_marginTop="15dp"
                         android:layout_marginBottom="15dp"
                         android:background="@drawable/roundcorner2"
                         android:contentDescription="@string/todo"
                         android:foregroundGravity="center"
-                        app:srcCompat="@drawable/ic_baseline_chat_bubble_outline_24" />
+                        app:srcCompat="@drawable/ic_baseline_chat_bubble_outline_24"
+                        tools:ignore="DuplicateSpeakableTextCheck,ImageContrastCheck" />
 
                 </LinearLayout>
             </LinearLayout>
