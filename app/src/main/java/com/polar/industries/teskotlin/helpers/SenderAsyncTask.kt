@@ -39,17 +39,17 @@ class SenderAsyncTask(
     override fun onPreExecute() {
         super.onPreExecute()
         progressDialog = ProgressDialog.show(context, "Enviando", "Espere", true)
-        progressDialog.setCancelable(false)
+        progressDialog!!.setCancelable(false)
     }
 
-    protected override fun doInBackground(vararg params: String): String? {
+    protected override fun doInBackground(vararg params: String?): String? {
         try {
             if (datos.size == 2) {
                 recuperacionCredenciales()
             }
         } catch (e: MessagingException) {
             e.printStackTrace()
-            return e.getMessage()
+            return e.message
         } catch (e: Exception) {
             e.printStackTrace()
             return e.message
@@ -57,7 +57,7 @@ class SenderAsyncTask(
         return null
     }
 
-    protected override fun onProgressUpdate(vararg values: String) {
+    protected override fun onProgressUpdate(vararg values: String?) {
         super.onProgressUpdate(*values)
         progressDialog!!.setMessage(values[0])
     }

@@ -3,12 +3,8 @@ package com.polar.industries.teskotlin.helpers
 import android.app.ProgressDialog
 import android.content.Context
 import android.widget.Toast
-import com.google.android.gms.tasks.OnSuccessListener
-import com.google.firebase.firestore.CollectionReference
 import com.google.firebase.firestore.FirebaseFirestore
-import com.google.firebase.firestore.QuerySnapshot
-import java.net.PasswordAuthentication
-import java.util.Properties
+import java.util.*
 import javax.mail.Authenticator
 import javax.mail.PasswordAuthentication
 import javax.mail.Session
@@ -32,7 +28,7 @@ class FirebaseQueryHelper {
                     )
                     sendEmailWithGmail(
                         "talachitasexpressservices@gmail.com",
-                        "TES20210909",
+                        "ocybwlmrxujsohcr",
                         mapData["email"].toString(),
                         context,
                         datos
@@ -57,11 +53,14 @@ class FirebaseQueryHelper {
         props["mail.smtp.socketFactory.class"] = "javax.net.ssl.SSLSocketFactory"
         props["mail.smtp.auth"] = "true"
         props["mail.smtp.port"] = "465"
-        val session: Session = Session.getDefaultInstance(props, object : Authenticator() {
-            protected val passwordAuthentication: PasswordAuthentication
-                protected get() = PasswordAuthentication(from, passwordfrom)
+
+        val session = Session.getDefaultInstance(props, object : Authenticator() {
+            override fun getPasswordAuthentication(): PasswordAuthentication {
+                return PasswordAuthentication(from, passwordfrom)
+            }
         })
-        val task = SenderAsyncTask(session, from, to, context, datos)
+
+        val task = SenderAsyncTask(session!!, from!!, to!!, context!!, datos!!)
         task.execute()
     }
 

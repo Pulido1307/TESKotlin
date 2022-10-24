@@ -26,14 +26,15 @@ class FirebaseFirestoreHelper {
         param: Array<String?>?,
         tipo: String
     ) {
-        val usuario: MutableMap<String, Any> = HashMap()
+        val usuario: MutableMap<String, Any?> = HashMap()
+
         if (tipo == "TALACHERO") {
             usuario["tipo_user"] = "TALACHERO"
-            usuario["nombre"] = param[0]
-            usuario["apellidos"] = param[1]
-            usuario["telefono"] = param[2]
-            usuario["ubicacion"] = param[3]
-            usuario["especialidad"] = param[4]
+            usuario["nombre"] = param!![0]
+            usuario["apellidos"] = param!![1]
+            usuario["telefono"] = param!![2]
+            usuario["ubicacion"] = param!![3]
+            usuario["especialidad"] = param!![4]
             usuario["email"] = email
             usuario["password"] = password
             usuario["uri_image"] = ""
@@ -49,10 +50,10 @@ class FirebaseFirestoreHelper {
             )
         } else if (tipo == "CLIENTE") {
             usuario["tipo_user"] = "CLIENTE"
-            usuario["nombre"] = param[0]
-            usuario["apellidos"] = param[1]
-            usuario["telefono"] = param[2]
-            usuario["ubicacion"] = param[3]
+            usuario["nombre"] = param!![0]
+            usuario["apellidos"] = param!![1]
+            usuario["telefono"] = param!![2]
+            usuario["ubicacion"] = param!![3]
             usuario["email"] = email
             usuario["password"] = password
             usuario["uri_image"] = ""
@@ -74,7 +75,7 @@ class FirebaseFirestoreHelper {
         document: String,
         information: Information,
         dialog: ProgressDialog,
-        data: Map<String, Any>,
+        data: Map<String, Any?>,
         context: Context
     ) {
         // Add a new document with a generated ID
