@@ -13,12 +13,20 @@ import android.view.View
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.graphics.drawable.RoundedBitmapDrawableFactory
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.textfield.TextInputLayout
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.ValueEventListener
+import com.google.firebase.database.ktx.database
+import com.google.firebase.ktx.Firebase
+import com.polar.industries.teskotlin.adapters.AdapterEspecialidad
 import com.polar.industries.teskotlin.adapters.AdapterListViewContratoPendiente
 import com.polar.industries.teskotlin.datosPrueba.DatosPrueba
 import com.polar.industries.teskotlin.helpers.FirebaseAuthHelper
@@ -26,13 +34,18 @@ import com.polar.industries.teskotlin.helpers.FirebaseFirestoreHelper
 import com.polar.industries.teskotlin.helpers.FirebaseStorageHelper
 import com.polar.industries.teskotlin.helpers.ImagesCompressHelper
 import com.polar.industries.teskotlin.interfaces.Information
+import com.polar.industries.teskotlin.interfaces.TalacheroInterface
 import com.polar.industries.teskotlin.models.Contrato
+import com.polar.industries.teskotlin.models.Especialidad
+import com.polar.industries.teskotlin.models.User
 import id.zelory.compressor.Compressor
+import kotlinx.android.synthetic.main.activity_main.*
 import java.io.File
 import java.io.IOException
 import java.util.*
+import kotlin.collections.ArrayList
 
-class MainActivity : AppCompatActivity(), Information {
+class MainActivity : AppCompatActivity(), Information, TalacheroInterface {
     private var imagen: File? = null
     private var tipo: String? = null
     private var textView_Nombre: TextView? = null
@@ -50,11 +63,14 @@ class MainActivity : AppCompatActivity(), Information {
     private val firebaseFirestoreHelper: FirebaseFirestoreHelper = FirebaseFirestoreHelper()
     private val firebaseStorageHelper: FirebaseStorageHelper = FirebaseStorageHelper()
 
+    private lateinit var databaseEspecialidad: DatabaseReference
+    private var listaEspecilidad: ArrayList<Especialidad> = arrayListOf()
+
     //private FirebaseFirestoreHelper firestoreHelper = new FirebaseFirestoreHelper();
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        title = "Talachitas Express Services"
+        /*title = "Talachitas Express Services"
         textView_Nombre = findViewById(R.id.textView_Nombre)
         textView_Ubicacion = findViewById(R.id.textView_Ubicacion)
         textView_Especialidad = findViewById(R.id.textView_Especialidad)
@@ -74,8 +90,35 @@ class MainActivity : AppCompatActivity(), Information {
         } else {
             floatingActionButton_contratos_propuestos!!.visibility = View.GONE
         }
+        buttons()*/
+        supportActionBar!!.hide()
+        databaseEspecialidad = Firebase.database.getReference("Especialidad")
+        configurationRecycler()
         setInformation()
-        buttons()
+        actionsButtons()
+    }
+
+    private fun configurationRecycler() {
+        recyclerViewEspecialidades.layoutManager = LinearLayoutManager(this@MainActivity, LinearLayoutManager.HORIZONTAL, false)
+        databaseEspecialidad.addValueEventListener(object : ValueEventListener{
+            override fun onDataChange(snapshot: DataSnapshot) {
+                if(snapshot.exists()){
+                    listaEspecilidad.clear()
+
+                    for (especialidadSnapShot in snapshot.children){
+                        val especialidadActual = especialidadSnapShot.getValue(Especialidad::class.java)
+                        listaEspecilidad.add(especialidadActual!!)
+                    }
+
+                    recyclerViewEspecialidades.adapter = AdapterEspecialidad(this@MainActivity, listaEspecilidad)
+                }
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+                TODO("Not yet implemented")
+            }
+
+        })
     }
 
     override fun onStart() {
@@ -83,16 +126,31 @@ class MainActivity : AppCompatActivity(), Information {
         firebaseStorageHelper.setInformationListener(this)
     }
 
+    private fun actionsButtons() {
+        topAppBarMain!!.setOnMenuItemClickListener {
+            when(it.itemId){
+                R.id.item_opc_main->{
+                    val intent: Intent = Intent(this@MainActivity, OpcionesActivity::class.java)
+                    startActivity(intent)
+                }
+            }
+            true
+        }
+    }
+
     private fun setInformation() {
-        textView_Nombre!!.setText(FirebaseFirestoreHelper.user!!.nombre + " " + FirebaseFirestoreHelper.user!!.apellidos)
+       /*textView_Nombre!!.setText(FirebaseFirestoreHelper.user!!.nombre + " " + FirebaseFirestoreHelper.user!!.apellidos)
         textView_Especialidad!!.text =
             "Especialidad: " + FirebaseFirestoreHelper.user!!.especialidad
         textView_Ubicacion!!.text = "Ubicación: " + FirebaseFirestoreHelper.user!!.ubicacion
         textView_Correo!!.text = "Email: " + FirebaseFirestoreHelper.user!!.email
-        setImage(FirebaseFirestoreHelper.user!!.uriImage!!)
+        setImage(FirebaseFirestoreHelper.user!!.uriImage!!)*/
+
+        topAppBarMain!!.title = "Hola, ${FirebaseFirestoreHelper.user!!.nombre} ${FirebaseFirestoreHelper.user!!.apellidos}"
     }
 
     private fun buttons() {
+
         materialButton_BuscarT_VerC!!.setOnClickListener {
             //Buscar Talachero
             if (tipo == "CLIENTE") {
@@ -505,5 +563,9 @@ class MainActivity : AppCompatActivity(), Information {
         } else if (message == "Imagen eliminada") {
             setImage("")
         }
+    }
+
+    override fun getTalacheros(talacheros: ArrayList<User>) {
+
     }
 }

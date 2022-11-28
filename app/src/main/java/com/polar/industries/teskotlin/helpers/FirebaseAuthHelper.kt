@@ -21,13 +21,7 @@ class FirebaseAuthHelper {
     }
 
     //Registrarse
-    fun createUserEmailAndPassword(
-        email: String?,
-        password: String?,
-        dialog: ProgressDialog,
-        args: Array<String?>?,
-        tipo: String?
-    ) {
+    fun createUserEmailAndPassword(email: String?, password: String?, dialog: ProgressDialog, args: Array<String?>?, tipo: String?) {
         if (stringHelper.isNotEmptyCredentials(email, password!!)) {
             mAuth.createUserWithEmailAndPassword(
                 email!!,
@@ -68,9 +62,7 @@ class FirebaseAuthHelper {
     fun signInWithEmailAndPassword(email: String?, password: String?, dialog: ProgressDialog) {
         if (stringHelper.isNotEmptyCredentials(email, password!!)) {
             mAuth.signInWithEmailAndPassword(email!!, password)
-                .addOnCompleteListener(
-                    (context as Activity?)!!
-                ) { task ->
+                .addOnCompleteListener(context as Activity) { task ->
                     if (task.isSuccessful) {
                         val user = mAuth.currentUser
                         firebaseFirestoreHelper.getData(

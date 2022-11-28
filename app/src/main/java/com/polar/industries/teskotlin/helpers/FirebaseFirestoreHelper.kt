@@ -2,17 +2,21 @@ package com.polar.industries.teskotlin.helpers
 
 import android.app.Activity
 import android.app.AlertDialog
+import android.app.Dialog
 import android.app.ProgressDialog
 import android.content.Context
 import android.content.Intent
 import android.util.Log
+import android.widget.Toast
 import com.google.firebase.firestore.CollectionReference
 import com.google.firebase.firestore.FirebaseFirestore
 import com.polar.industries.teskotlin.LoginActivity
 import com.polar.industries.teskotlin.MainActivity
 import com.polar.industries.teskotlin.interfaces.Information
+import com.polar.industries.teskotlin.interfaces.TalacheroInterface
 import com.polar.industries.teskotlin.models.User
 import java.util.*
+import kotlin.collections.ArrayList
 
 class FirebaseFirestoreHelper {
     //Se debe modificar
@@ -67,6 +71,8 @@ class FirebaseFirestoreHelper {
                 usuario,
                 context
             )
+        }else{
+            Toast.makeText(context, "Ya valio pitufi verga", Toast.LENGTH_LONG).show()
         }
     }
 
@@ -242,6 +248,34 @@ class FirebaseFirestoreHelper {
                 information.getMessage("Datos actualizados")
             }
             .addOnFailureListener { information.getMessage("Imagen no actualizada, verifica tu conexión a Internet") }
+    }
+
+    public fun getTalachero(talacheroInterface: TalacheroInterface, progressDialog: Dialog){
+        UsuariosCollection.whereEqualTo("tipo_user", "TALACHERO").get().addOnCompleteListener { it->
+            if(it.isSuccessful){
+                val listaTalacheros: ArrayList<User> = arrayListOf()
+
+                for (document in it.result){
+                    listaTalacheros.add(
+                        User(
+                            document.id,
+                            document.getString("tipo_user"),
+                            document.getString("nombre"),
+                            document.getString("apellidos"),
+                            document.getString("telefono"),
+                            document.getString("ubicacion"),
+                            document.getString("email"),
+                            document.getString("password"),
+                            true,
+                            document.getString("especialidad"),
+                            document.getString("uri_image")
+                        )
+                    )
+                }
+
+                talacheroInterface.getTalacheros(listaTalacheros)
+            }
+        }
     }
 
     companion object {

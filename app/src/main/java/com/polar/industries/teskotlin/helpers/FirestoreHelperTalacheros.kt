@@ -26,7 +26,7 @@ class FirestoreHelperTalacheros {
                             )
                         )
                     }
-                    talacheroInterface.getTalacheros(talacheros)
+                    //talacheroInterface.getTalacheros(talacheros)
                 } else {
                     Log.d("ERROR", "ERROR al obtener documentos", task.exception)
                 }

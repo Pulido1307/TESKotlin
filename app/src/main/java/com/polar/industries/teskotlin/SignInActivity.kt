@@ -196,17 +196,7 @@ class SignInActivity : AppCompatActivity(), Information {
             textInputLayout_Email!!.editText!!.text.toString().lowercase(Locale.getDefault())
         val pass = textInputLayout_Pass!!.editText!!.text.toString()
         val confirmPass = textInputLayout_ConfirmPass!!.editText!!.text.toString()
-        if (validarCampos(
-                nombre,
-                apellidos,
-                telefono,
-                ubicacion,
-                especialidad,
-                email,
-                pass,
-                confirmPass
-            )
-        ) {
+        if (validarCampos(nombre, apellidos, telefono, ubicacion, especialidad, email, pass, confirmPass)) {
             val args = arrayOfNulls<String>(5)
             args[0] = nombre
             args[1] = apellidos
@@ -219,16 +209,7 @@ class SignInActivity : AppCompatActivity(), Information {
         }
     }
 
-    private fun validarCampos(
-        nombre: String,
-        apellidos: String,
-        telefono: String,
-        ubicacion: String,
-        especialidad: String,
-        email: String,
-        pass: String,
-        confirmPass: String
-    ): Boolean {
+    private fun validarCampos(nombre: String, apellidos: String, telefono: String, ubicacion: String, especialidad: String, email: String, pass: String, confirmPass: String): Boolean {
         textInputLayout_Nombre!!.error = null
         textInputLayout_Apellidos!!.error = null
         textInputLayout_Telefono!!.error = null

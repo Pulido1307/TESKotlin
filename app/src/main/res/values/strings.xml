@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">TESKotlin</string>
+    <string name="app_name">TES</string>
 
     <string name="bienvenido_a_tes">¡Bienvenido a TES!</string>
     <string name="correo_el_ctronico">Correo eléctronico</string>
@@ -30,7 +30,7 @@
     <string name="abrir_mensajer_a">Abrir Mensajería</string>
 
 
-    <string name="direcci_n">Cerro de Punhuato 27 interior 7, infonavit balcones, Uruapan</string> <!--Cambiar-->
+    <string name="direcci_n">Dirección</string> <!--Cambiar-->
     <string name="email">example@example.com</string><!--Cambiar-->
     <string name="escribe_un_mensaje">Escribe un mensaje...</string>
     <string name="_100_talachos_disponibles">100 Talachos disponibles</string>
@@ -85,4 +85,28 @@
     <string name="nuevo_mensaje">Nuevo mensaje</string>
     <string name="aceptar_contrato">Aceptar contrato</string>
     <string name="actualizar_informaci_n">Actualizar información</string>
+    <string name="descriptionImageF">Fonde de pantalla login</string>
+    <string name="logo_de_tes">Logo de TES</string>
+    <string name="resgistrarse">Resgistrarse</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="correo_electr_nico">Correo electrónico</string>
+    <string name="usar_cuenta_social_para_iniciar_sesi_n">Usar cuenta social para iniciar sesión</string>
+    <string name="registro_como_cliente">Registro como Cliente</string>
+    <string name="apellido">Apellido</string>
+    <string name="logo">Logo</string>
+    <string name="opciones">Opciones</string>
+    <string name="placeholder">Pintores</string>
+    <string name="categoria_name">Nombre</string>
+    <string name="telefono_categoria">Teléfono</string>
+    <string name="servicios">Servicios</string>
+    <string name="buscar">Buscar</string>
+    <string name="usuario">Usuario</string>
+    <string name="cambiar_contrase_a">Cambiar contraseña</string>
+    <string name="correo">Correo</string>
+    <string name="editar_perfil">Editar perfil</string>
+    <string name="direccion_opc">Dirección</string>
+    <string name="contratos_opc">Contratos</string>
+    <string name="mensajer_a">Mensajería</string>
+    <string name="cerrar_sesi_n_opc">Cerrar Sesión</string>
 </resources>

@@ -4,190 +4,79 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/principal_yellow"
+
     tools:context=".LoginActivity">
 
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:fontFamily="@font/roboto_bold"
-        android:text="@string/bienvenido_a_tes"
-        android:textColor="@color/black"
-        android:textSize="20sp"
-        app:layout_constraintBottom_toTopOf="@+id/guideline2"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.05" />
-
-    <androidx.cardview.widget.CardView
-        android:layout_width="match_parent"
+    <ImageView
+        android:id="@+id/imageView_Fondo"
+        android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginStart="15dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginEnd="15dp"
-        android:layout_marginBottom="20dp"
-        app:cardCornerRadius="10dp"
+        android:contentDescription="@string/descriptionImageF"
+        android:scaleType="centerCrop"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/guideline2">
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/herramientas" />
 
-        <ScrollView
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/imageView_Fondo"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="SpeakableTextPresentCheck">
+
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            tools:ignore="SpeakableTextPresentCheck">
+            android:layout_height="wrap_content"
+            android:orientation="vertical" >
 
-            <LinearLayout
+            <ImageView
+                android:id="@+id/imageView_LogoTES"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
+                android:layout_height="150dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="20dp"
+                android:contentDescription="@string/logo"
+                tools:ignore="ImageContrastCheck"
+                app:srcCompat="@drawable/logo_tes"/>
 
-                <ImageView
-                    android:id="@+id/imageView"
-                    android:layout_width="200dp"
-                    android:layout_height="200dp"
-                    android:layout_gravity="center_horizontal|center_vertical"
-                    android:layout_marginTop="25dp"
-                    android:layout_marginBottom="25dp"
-                    android:contentDescription="@string/todo"
-                    app:srcCompat="@drawable/cambiar" />
+            <androidx.viewpager.widget.ViewPager
+                android:id="@+id/viewPager_Contracts"
+                android:layout_width="match_parent"
+                android:layout_height="700dp"
+                android:layout_marginLeft="40dp"
+                android:layout_marginRight="40dp">
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="0dp"
-                    android:layout_marginBottom="20dp"
-                    android:layout_weight="0.15"
-                    android:orientation="horizontal"
-                    android:weightSum="1">
-
-                    <ImageView
-                        android:id="@+id/imageView6"
-                        android:layout_width="30dp"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_horizontal|center_vertical"
-                        android:layout_marginEnd="2dp"
-                        android:layout_weight="0.15"
-                        android:backgroundTint="@color/black"
-                        android:contentDescription="@string/todo"
-                        app:srcCompat="@drawable/ic_baseline_alternate_email_24" />
-
-                    <com.google.android.material.textfield.TextInputLayout
-                        android:id="@+id/textInputLayout_Email_Login"
-                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginEnd="10dp"
-                        android:layout_weight="0.75"
-                        android:backgroundTint="@color/principal_yellow"
-                        android:hint="@string/correo_el_ctronico"
-                        app:boxStrokeColor="@color/principal_yellow"
-                        app:hintTextColor="@color/principal_yellow">
-
-                        <com.google.android.material.textfield.TextInputEditText
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:inputType="textEmailAddress"
-                            tools:ignore="TextContrastCheck,SpeakableTextPresentCheck" />
-                    </com.google.android.material.textfield.TextInputLayout>
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_marginTop="20dp"
-                    android:layout_marginBottom="20dp"
-                    android:orientation="horizontal"
-                    android:weightSum="1">
-
-                    <ImageView
-                        android:id="@+id/imageView7"
-                        android:layout_width="30dp"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_horizontal|center_vertical"
-                        android:layout_marginEnd="2dp"
-                        android:layout_weight="0.15"
-                        android:contentDescription="@string/todo"
-                        app:srcCompat="@drawable/ic_baseline_lock_24" />
-
-                    <com.google.android.material.textfield.TextInputLayout
-                        android:id="@+id/textInputLayout_Pass_Login"
-                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginEnd="10dp"
-                        android:layout_weight="0.75"
-                        android:backgroundTint="@color/principal_yellow"
-                        android:hint="@string/contrase_a"
-                        app:boxStrokeColor="@color/principal_yellow"
-                        app:hintTextColor="@color/principal_yellow"
-                        app:passwordToggleEnabled="true"
-                        app:passwordToggleTint="@color/black">
-
-                        <com.google.android.material.textfield.TextInputEditText
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:inputType="textPassword"
-                            tools:ignore="TextContrastCheck,SpeakableTextPresentCheck" />
-                    </com.google.android.material.textfield.TextInputLayout>
-                </LinearLayout>
-
-                <com.google.android.material.button.MaterialButton
-                    android:id="@+id/materialButton_IniciarSesion"
+                <com.google.android.material.tabs.TabLayout
+                    android:id="@+id/tabLayout_Contracts"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="10dp"
-                    android:layout_marginTop="20dp"
-                    android:layout_marginEnd="10dp"
-                    android:backgroundTint="@color/black"
-                    android:paddingTop="10dp"
-                    android:paddingBottom="10dp"
-                    android:text="@string/iniciar_sesi_n"
-                    app:cornerRadius="5dp">
+                    android:background="#00FFFFFF"
+                    app:tabIndicatorColor="@color/white"
+                    app:tabMode="fixed"
+                    app:tabPaddingEnd="12dp"
+                    app:tabPaddingStart="12dp"
+                    app:tabSelectedTextColor="@color/white"
+                    app:tabTextAppearance="@style/TextAppearance.App.Label"
+                    app:tabTextColor="@color/gray">
 
-                </com.google.android.material.button.MaterialButton>
+                    <com.google.android.material.tabs.TabItem
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/iniciar_sesi_n" />
 
-                <com.google.android.material.button.MaterialButton
-                    android:id="@+id/materialButton_Registrarse_Login"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="10dp"
-                    android:layout_marginTop="30dp"
-                    android:layout_marginEnd="10dp"
-                    android:backgroundTint="@color/black"
-                    android:paddingTop="10dp"
-                    android:paddingBottom="10dp"
-                    android:text="@string/registrarse"
-                    app:cornerRadius="5dp">
+                    <com.google.android.material.tabs.TabItem
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/resgistrarse" />
 
-                </com.google.android.material.button.MaterialButton>
+                </com.google.android.material.tabs.TabLayout>
 
-                <com.google.android.material.button.MaterialButton
-                    android:id="@+id/materialButton_OlvidarPass"
-                    style="@style/Widget.MaterialComponents.Button.TextButton"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="10dp"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginEnd="10dp"
-                    android:paddingTop="8dp"
-                    android:paddingBottom="8dp"
-                    android:text="@string/olvidaste_tu_contrase_a"
-                    android:textColor="@color/black"
-                    android:textStyle="italic"
-                    app:cornerRadius="5dp">
+            </androidx.viewpager.widget.ViewPager>
 
-                </com.google.android.material.button.MaterialButton>
-
-            </LinearLayout>
-        </ScrollView>
-    </androidx.cardview.widget.CardView>
-
+        </LinearLayout>
+    </ScrollView>
 </androidx.constraintlayout.widget.ConstraintLayout>
