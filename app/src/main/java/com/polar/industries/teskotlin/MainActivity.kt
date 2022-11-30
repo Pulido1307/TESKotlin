@@ -93,11 +93,11 @@ class MainActivity : AppCompatActivity(), Information, TalacheroInterface {
         } else {
             floatingActionButton_contratos_propuestos!!.visibility = View.GONE
         }
+        setInformation()
         buttons()*/
         supportActionBar!!.hide()
         databaseEspecialidad = Firebase.database.getReference("Especialidad")
         configurationRecycler()
-        setInformation()
         actionsButtons()
 
 
@@ -158,7 +158,7 @@ class MainActivity : AppCompatActivity(), Information, TalacheroInterface {
         }
     }
 
-    private fun setInformation() {
+    /*private fun setInformation() {
        /*textView_Nombre!!.setText(FirebaseFirestoreHelper.user!!.nombre + " " + FirebaseFirestoreHelper.user!!.apellidos)
         textView_Especialidad!!.text =
             "Especialidad: " + FirebaseFirestoreHelper.user!!.especialidad
@@ -167,7 +167,7 @@ class MainActivity : AppCompatActivity(), Information, TalacheroInterface {
         setImage(FirebaseFirestoreHelper.user!!.uriImage!!)*/
 
         topAppBarMain!!.title = "Hola, ${FirebaseFirestoreHelper.user!!.nombre} ${FirebaseFirestoreHelper.user!!.apellidos}"
-    }
+    }*/
 
     private fun buttons() {
 
@@ -579,7 +579,7 @@ class MainActivity : AppCompatActivity(), Information, TalacheroInterface {
     override fun getMessage(message: String?) {
         Toast.makeText(this@MainActivity, message, Toast.LENGTH_SHORT).show()
         if (message == "¡Datos actualizados!") {
-            setInformation()
+            //setInformation()
         } else if (message == "Imagen eliminada") {
             setImage("")
         }

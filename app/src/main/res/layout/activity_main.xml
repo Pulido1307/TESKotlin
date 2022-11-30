@@ -21,7 +21,7 @@
             android:layout_height="?attr/actionBarSize"
             android:background="@color/principal_yellow"
             app:menu="@menu/main"
-            app:title="Hola, Salvador"
+            app:title="¡TES te da la bienvenida!"
             app:titleTextColor="@color/black" />
 
     </com.google.android.material.appbar.AppBarLayout>

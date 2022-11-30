@@ -14,7 +14,7 @@ import com.polar.industries.teskotlin.helpers.FirebaseAuthHelper
 import com.polar.industries.teskotlin.helpers.FirebaseFirestoreHelper
 import kotlinx.android.synthetic.main.activity_opciones.*
 
-class OpcionesActivity : AppCompatActivity() {
+class OpcionesActivity : AppCompatActivity()  {
     private val firebaseAuthHelper: FirebaseAuthHelper = FirebaseAuthHelper()
     private lateinit var imageViewUserOpc: ImageView
 
@@ -33,8 +33,9 @@ class OpcionesActivity : AppCompatActivity() {
     private fun actionButtons() {
 
         cardViewEditarPerfil.setOnClickListener {
-            val intent: Intent = Intent(this, EditarPerfilActivity::class.java)
+            val intent: Intent = Intent(this@OpcionesActivity, EditarPerfilActivity::class.java)
             startActivity(intent)
+            finish()
         }
 
         cardViewCambiarContrasena.setOnClickListener {
