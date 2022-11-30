@@ -110,6 +110,8 @@ class FirebaseAuthHelper {
         this.information = information
     }
 
+
+
     companion object {
         // Initialize Firebase Auth
         var mAuth = FirebaseAuth.getInstance()

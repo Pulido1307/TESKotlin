@@ -109,4 +109,9 @@
     <string name="contratos_opc">Contratos</string>
     <string name="mensajer_a">Mensajería</string>
     <string name="cerrar_sesi_n_opc">Cerrar Sesión</string>
+    <string name="_4_00pm">4:00pm</string>
+    <string name="cambiar_foto">Cambiar foto</string>
+    <string name="confirmar">Confirmar</string>
+    <string name="guardar_cambios">Guardar cambios</string>
+    <string name="mensaje">Mensaje</string>
 </resources>

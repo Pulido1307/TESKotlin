@@ -6,13 +6,13 @@ import android.content.Intent
 import android.graphics.BitmapFactory
 import android.net.Uri
 import android.os.Bundle
-import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.graphics.drawable.RoundedBitmapDrawableFactory
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
@@ -28,6 +28,7 @@ import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
 import com.polar.industries.teskotlin.adapters.AdapterEspecialidad
 import com.polar.industries.teskotlin.adapters.AdapterListViewContratoPendiente
+import com.polar.industries.teskotlin.adapters.AdapterTalacheros
 import com.polar.industries.teskotlin.datosPrueba.DatosPrueba
 import com.polar.industries.teskotlin.helpers.FirebaseAuthHelper
 import com.polar.industries.teskotlin.helpers.FirebaseFirestoreHelper
@@ -43,7 +44,6 @@ import kotlinx.android.synthetic.main.activity_main.*
 import java.io.File
 import java.io.IOException
 import java.util.*
-import kotlin.collections.ArrayList
 
 class MainActivity : AppCompatActivity(), Information, TalacheroInterface {
     private var imagen: File? = null
@@ -65,12 +65,15 @@ class MainActivity : AppCompatActivity(), Information, TalacheroInterface {
 
     private lateinit var databaseEspecialidad: DatabaseReference
     private var listaEspecilidad: ArrayList<Especialidad> = arrayListOf()
+    private var listaTrabajadores: ArrayList<User> = arrayListOf()
+    private lateinit var adapterTalachero: AdapterTalacheros
 
     //private FirebaseFirestoreHelper firestoreHelper = new FirebaseFirestoreHelper();
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         /*title = "Talachitas Express Services"
+
         textView_Nombre = findViewById(R.id.textView_Nombre)
         textView_Ubicacion = findViewById(R.id.textView_Ubicacion)
         textView_Especialidad = findViewById(R.id.textView_Especialidad)
@@ -96,6 +99,12 @@ class MainActivity : AppCompatActivity(), Information, TalacheroInterface {
         configurationRecycler()
         setInformation()
         actionsButtons()
+
+
+        val progressDialog = ProgressDialog.show(this@MainActivity, "", "Cargando...", true)
+        firebaseFirestoreHelper.readTalachero(this@MainActivity, progressDialog)
+
+
     }
 
     private fun configurationRecycler() {
@@ -115,10 +124,21 @@ class MainActivity : AppCompatActivity(), Information, TalacheroInterface {
             }
 
             override fun onCancelled(error: DatabaseError) {
-                TODO("Not yet implemented")
+                Toast.makeText(this@MainActivity, "Fallo en la comunicación $error",  Toast.LENGTH_SHORT).show()
             }
-
         })
+
+
+    }
+
+    override fun getTalacheros(talacheros: ArrayList<User>) {
+        if(talacheros.size != 0){
+            listaTrabajadores = talacheros
+
+            adapterTalachero = AdapterTalacheros(this@MainActivity, listaTrabajadores, this@MainActivity)
+            recyclerCategoria.layoutManager = GridLayoutManager(this@MainActivity, 2)
+            recyclerCategoria.adapter = adapterTalachero
+        }
     }
 
     override fun onStart() {
@@ -153,14 +173,14 @@ class MainActivity : AppCompatActivity(), Information, TalacheroInterface {
 
         materialButton_BuscarT_VerC!!.setOnClickListener {
             //Buscar Talachero
-            if (tipo == "CLIENTE") {
+           /* if (tipo == "CLIENTE") {
                 val intent = Intent(this@MainActivity, SpecialtyActivity::class.java)
                 startActivity(intent)
             } else {
                 //TALACHERO. Ver Contratos
                 val intent = Intent(this@MainActivity, ContractHistoryActivity::class.java)
                 startActivity(intent)
-            }
+            }*/
         }
         materialButton_AbrirMensajeria!!.setOnClickListener {
             val intent = Intent(this@MainActivity, MensajeriaActivity::class.java)
@@ -565,7 +585,6 @@ class MainActivity : AppCompatActivity(), Information, TalacheroInterface {
         }
     }
 
-    override fun getTalacheros(talacheros: ArrayList<User>) {
 
-    }
+
 }

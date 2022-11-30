@@ -250,9 +250,10 @@ class FirebaseFirestoreHelper {
             .addOnFailureListener { information.getMessage("Imagen no actualizada, verifica tu conexión a Internet") }
     }
 
-    public fun getTalachero(talacheroInterface: TalacheroInterface, progressDialog: Dialog){
-        UsuariosCollection.whereEqualTo("tipo_user", "TALACHERO").get().addOnCompleteListener { it->
+    public fun readTalachero(talacheroInterface: TalacheroInterface, progressDialog: Dialog){
+        UsuariosCollection.whereEqualTo("tipo_user", "TALACHERO").get().addOnCompleteListener {
             if(it.isSuccessful){
+                progressDialog.dismiss()
                 val listaTalacheros: ArrayList<User> = arrayListOf()
 
                 for (document in it.result){
@@ -274,6 +275,9 @@ class FirebaseFirestoreHelper {
                 }
 
                 talacheroInterface.getTalacheros(listaTalacheros)
+            }else{
+                Log.d("ERROR", "ERROR al obtener documentos", it.exception)
+                progressDialog.dismiss()
             }
         }
     }

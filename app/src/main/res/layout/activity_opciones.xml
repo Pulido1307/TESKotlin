@@ -39,7 +39,7 @@
                         android:layout_gravity="center"
                         android:layout_marginStart="40dp"
                         android:contentDescription="@string/todo"
-                        app:srcCompat="@drawable/placeholderperfil"
+                        app:srcCompat="@drawable/usuario"
                         tools:ignore="ImageContrastCheck" />
 
                     <LinearLayout
@@ -50,7 +50,7 @@
                         android:orientation="vertical">
 
                         <TextView
-                            android:id="@+id/textView2"
+                            android:id="@+id/textViewNombreUserMenu"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="20dp"
@@ -61,7 +61,7 @@
                             android:textSize="16sp" />
 
                         <TextView
-                            android:id="@+id/textView3"
+                            android:id="@+id/textViewCorreoUserMenu"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="20dp"
@@ -72,7 +72,7 @@
                             android:textSize="12sp" />
 
                         <TextView
-                            android:id="@+id/textView4"
+                            android:id="@+id/textViewDireccionUserMenu"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="20dp"

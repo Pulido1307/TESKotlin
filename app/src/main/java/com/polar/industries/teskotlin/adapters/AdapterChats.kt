@@ -9,6 +9,8 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.auth.FirebaseUser
 import com.polar.industries.teskotlin.R
+import com.polar.industries.teskotlin.helpers.FirebaseAuthHelper
+import com.polar.industries.teskotlin.helpers.FirebaseFirestoreHelper
 import com.polar.industries.teskotlin.models.Chats
 import java.text.SimpleDateFormat
 import java.util.*
@@ -19,50 +21,43 @@ class AdapterChats(private val chatList: List<Chats>, private val context: Conte
     val MENSAJE_LEFT: Int = 0
     var solo_right: Boolean = false
     var firebaseUser: FirebaseUser? = null
+    public val DERECHA: Int = 1
+    public val IZQUIERDA: Int = 0
+    public var mensajePropio = false
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolderAdapter {
         if(viewType == MENSAJE_RIGHT){
-            val view: View = LayoutInflater.from(context).inflate(R.layout.chat_item_right, parent, false)
+            val view: View = LayoutInflater.from(context).inflate(R.layout.chat_item_left, parent, false)
             return AdapterChats.ViewHolderAdapter(view)
         } else {
-            val view: View = LayoutInflater.from(context).inflate(R.layout.chat_item_left, parent, false)
+            val view: View = LayoutInflater.from(context).inflate(R.layout.chat_item_right, parent, false)
             return AdapterChats.ViewHolderAdapter(view)
         }
     }
 
     override fun onBindViewHolder(holder: ViewHolderAdapter, position: Int) {
-        val chats: Chats = chatList.get(position)
+        val mensajeActual: Chats = chatList[position]
 
-        holder.textView_Message.setText(chats.mensaje)
-        if (solo_right) {
-            if (chats.visto.equals("SI")) {
-                holder.imageView_Entregado.visibility = View.GONE
-                holder.imageView_Visto.visibility = View.VISIBLE
-            } else {
-                holder.imageView_Entregado.visibility = View.VISIBLE
-                holder.imageView_Visto.visibility = View.GONE
-            }
-        } //Fin solo_right
-
-        val c = Calendar.getInstance()
-        val dateFormat = SimpleDateFormat("dd/MM/yyyy")
-        if (chats.fecha.equals(dateFormat.format(c.time))) {
-            holder.textView_Fecha.text = "Hoy " + chats.hora
-        } else {
-            holder.textView_Fecha.setText(chats.fecha + " " + chats.hora)
-        }
+        holder.textViewMensajeItem.text = mensajeActual.mensaje
     }
 
     override fun getItemCount(): Int {
         return chatList.size
     }
 
+    override fun getItemViewType(position: Int): Int {
+        if (chatList[position].envia.equals(FirebaseAuthHelper.mAuth.currentUser!!.uid)){
+            mensajePropio = true
+            return DERECHA
+        } else{
+            mensajePropio = false
+            return IZQUIERDA
+        }
+    }
+
 
     class ViewHolderAdapter(itemView: View): RecyclerView.ViewHolder(itemView){
-        val textView_Message: TextView = itemView.findViewById(R.id.textView_Message)
-        val textView_Fecha: TextView = itemView.findViewById(R.id.textView_Fecha)
-        val imageView_Entregado: ImageView = itemView.findViewById(R.id.imageView_Entregado)
-        val imageView_Visto: ImageView = itemView.findViewById(R.id.imageView_Visto)
+        val textViewMensajeItem: TextView = itemView.findViewById(R.id.textViewMensajeItem)
     }
 }

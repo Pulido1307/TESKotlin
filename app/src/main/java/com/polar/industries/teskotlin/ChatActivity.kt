@@ -1,69 +1,86 @@
 package com.polar.industries.teskotlin
 
 import android.os.Bundle
-import android.view.View
-import android.widget.EditText
-import android.widget.ImageButton
-import android.widget.ImageView
-import android.widget.TextView
+import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.ValueEventListener
+import com.google.firebase.database.ktx.database
+import com.google.firebase.ktx.Firebase
 import com.polar.industries.teskotlin.adapters.AdapterChats
-import com.polar.industries.teskotlin.helpers.FirebaseFirestoreHelper
+import com.polar.industries.teskotlin.helpers.FirebaseAuthHelper
 import com.polar.industries.teskotlin.models.Chats
-import java.text.SimpleDateFormat
-import java.util.*
+import kotlinx.android.synthetic.main.activity_chat.*
 
 class ChatActivity : AppCompatActivity() {
 
-    private var tipoUsuario: String? = null
-    private var textView_NombreDestinatario_Chat: TextView? = null
-    private var editTextTextMultiLine_Mensaje: EditText? = null
-    private var imageView_ButtonEnviar: ImageView? = null
-    private var adapterChats: AdapterChats? = null
-    private var arrayChats: MutableList<Chats>? = null
-    private var recyclerView_Chats: RecyclerView? = null
-    private var imageButton_propuesta_contrato_chat: ImageButton? = null
+
+    private lateinit var database: DatabaseReference
+
+    private var nombreDestinatario: String? = null
+    private lateinit var conversacionLista: ArrayList<Chats>
+
+    private var idReceptor: String? = ""
+    private var idUserEnvia: String? = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_chat)
         supportActionBar!!.hide()
-        textView_NombreDestinatario_Chat = findViewById(R.id.textView_NombreDestinatario_Chat)
-        editTextTextMultiLine_Mensaje = findViewById(R.id.editTextTextMultiLine_Mensaje)
-        imageView_ButtonEnviar = findViewById(R.id.imageView_ButtonEnviar)
-        imageButton_propuesta_contrato_chat = findViewById(R.id.imageButton_propuesta_contrato_chat)
 
-        val parametros = this.intent.extras
-        textView_NombreDestinatario_Chat!!.text = parametros!!.getString("NombreTalachero")
-        recyclerView_Chats = findViewById(R.id.recyclerView_Chats)
-        recyclerView_Chats!!.setHasFixedSize(true)
-        val linearLayoutManager = LinearLayoutManager(this)
-        linearLayoutManager.stackFromEnd = true
-        recyclerView_Chats!!.setLayoutManager(linearLayoutManager)
-        arrayChats = ArrayList<Chats>()
-        adapterChats = AdapterChats(arrayChats as ArrayList<Chats>, this@ChatActivity)
-        recyclerView_Chats!!.setAdapter(adapterChats)
-        imageView_ButtonEnviar!!.setOnClickListener {
-            val c = Calendar.getInstance()
-            val dateFormat = SimpleDateFormat("dd/MM/yyyy")
-            val timeFormat = SimpleDateFormat("HH:mm")
-            val texto = editTextTextMultiLine_Mensaje!!.text
-            if (!texto.isEmpty()) {
-                val chats = Chats()
-                chats.mensaje = texto.toString()
-                chats.visto = "SI"
-                chats.fecha = dateFormat.format(c.time).toString()
-                chats.hora = timeFormat.format(c.time).toString()
-                arrayChats!!.add(chats)
-                adapterChats!!.notifyDataSetChanged()
-                editTextTextMultiLine_Mensaje!!.setText("")
+        idReceptor = intent.getStringExtra("id")
+        idUserEnvia = FirebaseAuthHelper.mAuth.currentUser!!.uid
+
+
+        database = Firebase.database.getReference("Chats")
+        recyclerViewChat.layoutManager = LinearLayoutManager(this@ChatActivity)
+        recyclerViewChat.setHasFixedSize(true)
+
+        conversacionLista = arrayListOf()
+
+        textViewDestinatarioChat.text = "${intent.getStringExtra("nombre")} ${intent.getStringExtra("apellidos")}"
+
+        getMensajes()
+        actionButtons()
+    }
+
+    private fun getMensajes() {
+        database.addValueEventListener(object : ValueEventListener {
+            override fun onDataChange(snapshot: DataSnapshot) {
+                if(snapshot.exists()){
+                    conversacionLista.clear()
+                    for (conversacionSnapShot in snapshot.children){
+                        val mensajeActual = conversacionSnapShot.getValue(Chats::class.java)
+                        if(mensajeActual!!.envia.equals(idReceptor) && mensajeActual!!.recibe.equals(idUserEnvia)){
+                            conversacionLista.add(mensajeActual!!)
+                        } else if(mensajeActual!!.envia.equals(idUserEnvia) && mensajeActual!!.recibe.equals(idReceptor)){
+                            conversacionLista.add(mensajeActual!!)
+                        }
+                    }
+                    recyclerViewChat.adapter = AdapterChats( conversacionLista, this@ChatActivity)
+                }
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+                Toast.makeText(this@ChatActivity, "Se cayó más feo que la maquina en la liguilla :c", Toast.LENGTH_SHORT).show()
+            }
+        })
+    }
+
+    private fun actionButtons() {
+        imageButtonEnviarMensaje.setOnClickListener {
+            if(editTextMensajeChat.text.toString().isNotEmpty()){
+                val msj: Chats = Chats(idUserEnvia, idReceptor, editTextMensajeChat.text.toString())
+                database.push().setValue(msj)
+                Toast.makeText(this@ChatActivity, "¡Mensaje enviado!", Toast.LENGTH_SHORT).show()
+                editTextMensajeChat.setText("")
             }
         }
-        tipoUsuario = FirebaseFirestoreHelper.user!!.tipo_user
-        if (tipoUsuario.equals("cliente", ignoreCase = true)) {
-            imageButton_propuesta_contrato_chat!!.visibility= View.INVISIBLE
-        }
     }
+
+
 }
