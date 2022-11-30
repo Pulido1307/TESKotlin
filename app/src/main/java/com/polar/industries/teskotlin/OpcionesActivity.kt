@@ -2,20 +2,30 @@ package com.polar.industries.teskotlin
 
 import android.app.ProgressDialog
 import android.content.Intent
+import android.graphics.BitmapFactory
 import android.os.Bundle
+import android.widget.ImageView
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.graphics.drawable.RoundedBitmapDrawableFactory
+import com.bumptech.glide.Glide
+import com.bumptech.glide.request.RequestOptions
 import com.polar.industries.teskotlin.helpers.FirebaseAuthHelper
 import com.polar.industries.teskotlin.helpers.FirebaseFirestoreHelper
 import kotlinx.android.synthetic.main.activity_opciones.*
 
 class OpcionesActivity : AppCompatActivity() {
     private val firebaseAuthHelper: FirebaseAuthHelper = FirebaseAuthHelper()
+    private lateinit var imageViewUserOpc: ImageView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_opciones)
         supportActionBar!!.hide()
 
+        imageViewUserOpc = findViewById(R.id.imageViewUserOpc)
+
+        setImage(FirebaseFirestoreHelper.user!!.uriImage!!)
         getInformationUser()
         actionButtons()
     }
@@ -48,10 +58,35 @@ class OpcionesActivity : AppCompatActivity() {
        }
     }
 
+
+
     private fun getInformationUser() {
         textViewNombreUserMenu.text =
             "${FirebaseFirestoreHelper.user!!.nombre} ${FirebaseFirestoreHelper.user!!.apellidos}"
         textViewCorreoUserMenu.text = "${FirebaseFirestoreHelper.user!!.email}"
         textViewDireccionUserMenu.text = "${FirebaseFirestoreHelper.user!!.ubicacion}"
+    }
+
+    private fun setImage(image_url: String) {
+        val rm = Glide.with(applicationContext)
+        if (image_url == "") {
+            val placeholder =
+                BitmapFactory.decodeResource(applicationContext.resources, R.drawable.usuario)
+            val circularBitmapDrawable = RoundedBitmapDrawableFactory.create(
+                applicationContext.resources, placeholder
+            )
+            circularBitmapDrawable.isCircular = true
+            rm.load(circularBitmapDrawable)
+                .fitCenter()
+                .centerCrop()
+                .apply(RequestOptions.circleCropTransform()) //.apply(RequestOptions.bitmapTransform(new RoundedCorners(16)))
+                .into(imageViewUserOpc!!)
+        } else {
+            rm.load(FirebaseFirestoreHelper.user!!.uriImage)
+                .fitCenter()
+                .centerCrop()
+                .apply(RequestOptions.circleCropTransform()) //.apply(RequestOptions.bitmapTransform(new RoundedCorners(16)))
+                .into(imageViewUserOpc!!)
+        }
     }
 }
