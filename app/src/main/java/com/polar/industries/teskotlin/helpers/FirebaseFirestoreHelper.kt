@@ -282,10 +282,10 @@ class FirebaseFirestoreHelper {
         }
     }
 
-    public fun readUsuariosMensajeria(progressDialog: Dialog, contactoInterface: Contacto, listaIds: ArrayList<String>){
+    public fun readUsuariosMensajeria(contactoInterface: Contacto, listaIds: ArrayList<String>){
         UsuariosCollection.get().addOnCompleteListener {
             if (it.isSuccessful){
-                progressDialog.dismiss()
+
                 val userList: ArrayList<User> = arrayListOf()
                 for (document in it.result){
                     if(listaIds.indexOf(document.id)>=0){
@@ -309,7 +309,6 @@ class FirebaseFirestoreHelper {
                 contactoInterface.getUsers(userList)
             }else{
                 Log.d("ERROR", "ERROR al obtener documentos", it.exception)
-                progressDialog.dismiss()
             }
         }
     }

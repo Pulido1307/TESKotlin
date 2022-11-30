@@ -29,7 +29,7 @@ class MensajeriaActivity : AppCompatActivity(), Contacto {
     private var listaContactos: ArrayList<User> = arrayListOf()
     private  var listaIDS: ArrayList<String> = arrayListOf()
     private lateinit var database: DatabaseReference
-    private val firebaseFirestoreHelper: FirebaseFirestoreHelper = FirebaseFirestoreHelper()
+    private val fbHelper: FirebaseFirestoreHelper = FirebaseFirestoreHelper()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -62,8 +62,7 @@ class MensajeriaActivity : AppCompatActivity(), Contacto {
                             }
                         }
                     }
-                    val progressDialog = ProgressDialog.show(this@MensajeriaActivity, "", "Cargando...", true)
-                    firebaseFirestoreHelper.readUsuariosMensajeria(progressDialog, this@MensajeriaActivity, listaIDS)
+                    fbHelper.readUsuariosMensajeria(this@MensajeriaActivity, listaIDS)
                 }
             }
 
@@ -80,5 +79,10 @@ class MensajeriaActivity : AppCompatActivity(), Contacto {
             recyclerViewMensajeria.layoutManager = LinearLayoutManager(this@MensajeriaActivity)
             recyclerViewMensajeria.adapter = AdapterMensajeria(this@MensajeriaActivity, listaContactos, this@MensajeriaActivity)
         }
+    }
+
+    override fun onBackPressed() {
+        Toast.makeText(this@MensajeriaActivity, "Me fui", Toast.LENGTH_SHORT).show()
+        finish()
     }
 }
