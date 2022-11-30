@@ -13,7 +13,7 @@ import com.google.firebase.firestore.FirebaseFirestore
 import com.polar.industries.teskotlin.LoginActivity
 import com.polar.industries.teskotlin.MainActivity
 import com.polar.industries.teskotlin.interfaces.Information
-import com.polar.industries.teskotlin.interfaces.TalacheroInterface
+import com.polar.industries.teskotlin.interfaces.*
 import com.polar.industries.teskotlin.models.User
 import java.util.*
 import kotlin.collections.ArrayList
@@ -275,6 +275,38 @@ class FirebaseFirestoreHelper {
                 }
 
                 talacheroInterface.getTalacheros(listaTalacheros)
+            }else{
+                Log.d("ERROR", "ERROR al obtener documentos", it.exception)
+                progressDialog.dismiss()
+            }
+        }
+    }
+
+    public fun readUsuariosMensajeria(progressDialog: Dialog, contactoInterface: Contacto, listaIds: ArrayList<String>){
+        UsuariosCollection.get().addOnCompleteListener {
+            if (it.isSuccessful){
+                progressDialog.dismiss()
+                val userList: ArrayList<User> = arrayListOf()
+                for (document in it.result){
+                    if(listaIds.indexOf(document.id)>=0){
+                        userList.add(
+                            User(
+                                document.id,
+                                document.getString("tipo_user"),
+                                document.getString("nombre"),
+                                document.getString("apellidos"),
+                                document.getString("telefono"),
+                                document.getString("ubicacion"),
+                                document.getString("email"),
+                                document.getString("password"),
+                                true,
+                                document.getString("especialidad"),
+                                document.getString("uri_image")
+                            )
+                        )
+                    }
+                }
+                contactoInterface.getUsers(userList)
             }else{
                 Log.d("ERROR", "ERROR al obtener documentos", it.exception)
                 progressDialog.dismiss()

@@ -25,7 +25,7 @@ class OpcionesActivity : AppCompatActivity() {
 
         imageViewUserOpc = findViewById(R.id.imageViewUserOpc)
 
-        setImage(FirebaseFirestoreHelper.user!!.uriImage!!)
+
         getInformationUser()
         actionButtons()
     }
@@ -37,13 +37,13 @@ class OpcionesActivity : AppCompatActivity() {
             startActivity(intent)
         }
 
-        cardViewMensajeriaOpc.setOnClickListener {
-            val intent: Intent = Intent(this@OpcionesActivity, MensajeriaActivity::class.java)
+        cardViewCambiarContrasena.setOnClickListener {
+            val intent: Intent = Intent(this, CambiarContrasenaActivity::class.java)
             startActivity(intent)
         }
 
-        cardViewCambiarContrasena.setOnClickListener {
-            val intent: Intent = Intent(this, CambiarContrasenaActivity::class.java)
+        cardViewMensajeriaOpc.setOnClickListener {
+            val intent: Intent = Intent(this@OpcionesActivity, MensajeriaActivity::class.java)
             startActivity(intent)
         }
 
@@ -65,6 +65,7 @@ class OpcionesActivity : AppCompatActivity() {
             "${FirebaseFirestoreHelper.user!!.nombre} ${FirebaseFirestoreHelper.user!!.apellidos}"
         textViewCorreoUserMenu.text = "${FirebaseFirestoreHelper.user!!.email}"
         textViewDireccionUserMenu.text = "${FirebaseFirestoreHelper.user!!.ubicacion}"
+        setImage(FirebaseFirestoreHelper.user!!.uriImage!!)
     }
 
     private fun setImage(image_url: String) {

@@ -5,8 +5,11 @@ import android.app.ProgressDialog
 import android.content.Context
 import android.content.Intent
 import android.util.Log
+import android.widget.Toast
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.ktx.Firebase
 import com.polar.industries.teskotlin.LoginActivity
 import com.polar.industries.teskotlin.interfaces.Information
 import java.util.*
@@ -110,6 +113,21 @@ class FirebaseAuthHelper {
         this.information = information
     }
 
+    public fun actualizarPassword(password: String, activity: Activity, dialog: ProgressDialog){
+        val userCambiarPass = Firebase.auth.currentUser
+        userCambiarPass!!.updatePassword(password).addOnCompleteListener {
+           if(it.isSuccessful){
+               dialog.dismiss()
+               FirebaseFirestoreHelper.user!!.password = password
+               Toast.makeText(activity.baseContext, "Contraseña actualizada", Toast.LENGTH_SHORT).show()
+               activity.finish()
+           } else{
+               Toast.makeText(activity.baseContext, "Error: ${it.exception}", Toast.LENGTH_LONG).show()
+           }
+        }.addOnFailureListener{
+            Toast.makeText(activity.baseContext, "Error: $it", Toast.LENGTH_LONG).show()
+        }
+    }
 
 
     companion object {
