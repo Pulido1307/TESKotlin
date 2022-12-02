@@ -57,7 +57,7 @@
                             android:layout_marginTop="20dp"
                             android:fontFamily="@font/roboto_bold"
                             android:text="@string/usuario"
-                            android:textColor="@color/black"
+                            android:textColor="@color/white"
                             android:textSize="16sp" />
 
                         <TextView
@@ -68,7 +68,7 @@
                             android:layout_marginTop="5dp"
                             android:fontFamily="@font/roboto"
                             android:text="@string/correo"
-                            android:textColor="@color/black"
+                            android:textColor="@color/white"
                             android:textSize="12sp" />
 
                         <TextView
@@ -79,7 +79,7 @@
                             android:layout_marginTop="5dp"
                             android:fontFamily="@font/roboto"
                             android:text="@string/direccion_opc"
-                            android:textColor="@color/black"
+                            android:textColor="@color/white"
                             android:textSize="12sp" />
                     </LinearLayout>
 
@@ -217,7 +217,7 @@
                 android:layout_height="75dp"
                 android:layout_gravity="center"
                 android:layout_marginTop="20dp"
-                android:backgroundTint="@color/black"
+                android:backgroundTint="@color/white"
                 android:text="@string/cerrar_sesi_n_opc"
                 android:textAllCaps="true"
                 android:textColor="@color/principal_yellow"

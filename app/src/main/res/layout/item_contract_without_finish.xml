@@ -139,8 +139,8 @@
                         android:background="@drawable/roundcorner2"
                         android:contentDescription="@string/todo"
                         app:srcCompat="@drawable/ic_twotone_message_24"
-                        tools:ignore="DuplicateSpeakableTextCheck,ImageContrastCheck"
-                        app:tint="@color/principal_yellow" />
+                        app:tint="@color/white"
+                        tools:ignore="DuplicateSpeakableTextCheck,ImageContrastCheck" />
 
                 </LinearLayout>
             </LinearLayout>

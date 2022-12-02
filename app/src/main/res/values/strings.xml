@@ -116,4 +116,8 @@
     <string name="mensaje">Mensaje</string>
     <string name="contrase_a_actual">Contraseña actual</string>
     <string name="nueva_contrase_a">Nueva contraseña</string>
+    <string name="prestador_de_servicio">Prestador de servicio:</string>
+    <string name="prestador_de_servicios">Prestador de servicio:</string>
+    <string name="descripci_n_del_arreglo">Descripción del arreglo</string>
+    <string name="monto_a_cobrar">Monto a cobrar</string>
 </resources>

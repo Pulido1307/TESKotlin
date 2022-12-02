@@ -30,7 +30,7 @@
         android:id="@+id/button_Send_recover"
         style="@style/Widget.MaterialComponents.Button"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="60dp"
         android:layout_marginStart="20dp"
         android:layout_marginEnd="20dp"
         android:layout_marginBottom="5dp"
@@ -40,14 +40,14 @@
         android:text="@string/enviar"
         android:textColor="#FFFFFF"
         android:textSize="14sp"
-        app:backgroundTint="#000000" />
+        app:backgroundTint="@color/principal_yellow" />
 
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/button_Cancel_recover"
         style="@style/Widget.MaterialComponents.Button"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="70dp"
         android:layout_marginStart="20dp"
         android:layout_marginTop="5dp"
         android:layout_marginEnd="20dp"
@@ -58,6 +58,6 @@
         android:text="@string/cancelar"
         android:textColor="#FFFFFF"
         android:textSize="14sp"
-        app:backgroundTint="#000000" />
+        app:backgroundTint="@color/principal_yellow" />
 
 </LinearLayout>

@@ -25,13 +25,11 @@ class OpcionesActivity : AppCompatActivity()  {
 
         imageViewUserOpc = findViewById(R.id.imageViewUserOpc)
 
-
         getInformationUser()
         actionButtons()
     }
 
     private fun actionButtons() {
-
         cardViewEditarPerfil.setOnClickListener {
             val intent: Intent = Intent(this@OpcionesActivity, EditarPerfilActivity::class.java)
             startActivity(intent)
@@ -58,8 +56,6 @@ class OpcionesActivity : AppCompatActivity()  {
             firebaseAuthHelper.signout(progressDialog, this@OpcionesActivity)
        }
     }
-
-
 
     private fun getInformationUser() {
         textViewNombreUserMenu.text =
@@ -89,6 +85,18 @@ class OpcionesActivity : AppCompatActivity()  {
                 .centerCrop()
                 .apply(RequestOptions.circleCropTransform()) //.apply(RequestOptions.bitmapTransform(new RoundedCorners(16)))
                 .into(imageViewUserOpc!!)
+        }
+    }
+
+    override fun onBackPressed() {
+        if(FirebaseFirestoreHelper.user!!.tipo_user!!.equals("CLIENTE")){
+            val intent: Intent = Intent(this@OpcionesActivity, MainActivity::class.java)
+            startActivity(intent)
+            finish()
+        } else{
+            val intent: Intent = Intent(this@OpcionesActivity, ContractsActivity::class.java)
+            startActivity(intent)
+            finish()
         }
     }
 }

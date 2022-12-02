@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/gris_suave"
     tools:context=".GananciasActivity">
 
     <ScrollView
@@ -59,7 +60,7 @@
                     android:layout_marginStart="20dp"
                     android:layout_marginEnd="5dp"
                     android:layout_weight="1"
-                    app:cardBackgroundColor="@color/black"
+                    app:cardBackgroundColor="@color/principal_yellow"
                     app:cardCornerRadius="10dp">
 
                     <LinearLayout
@@ -95,7 +96,7 @@
                     android:layout_height="match_parent"
                     android:layout_marginEnd="20dp"
                     android:layout_weight="1"
-                    app:cardBackgroundColor="@color/black"
+                    app:cardBackgroundColor="@color/principal_yellow"
                     app:cardCornerRadius="10dp">
 
                     <LinearLayout
@@ -235,14 +236,14 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="20dp"
-                android:layout_marginTop="100dp"
+                android:layout_marginTop="70dp"
                 android:layout_marginEnd="20dp"
                 android:layout_marginBottom="10dp"
-                android:backgroundTint="@color/black"
+                android:backgroundTint="@color/principal_yellow"
                 android:paddingTop="20dp"
                 android:paddingBottom="20dp"
                 android:text="@string/contratos_finalizados"
-                app:cornerRadius="5dp"
+                app:cornerRadius="10dp"
                 tools:ignore="DuplicateSpeakableTextCheck">
 
             </com.google.android.material.button.MaterialButton>

@@ -10,6 +10,7 @@ import android.util.Log
 import android.widget.Toast
 import com.google.firebase.firestore.CollectionReference
 import com.google.firebase.firestore.FirebaseFirestore
+import com.polar.industries.teskotlin.ContractsActivity
 import com.polar.industries.teskotlin.LoginActivity
 import com.polar.industries.teskotlin.MainActivity
 import com.polar.industries.teskotlin.interfaces.Information
@@ -123,6 +124,7 @@ class FirebaseFirestoreHelper {
                 val document = task.result
                 if (Objects.requireNonNull(document).exists()) {
                     val data = document.data
+                    val intent: Intent
                     if (data!!["tipo_user"].toString() == "CLIENTE") {
                         //Cliente
                         user = User(
@@ -137,6 +139,7 @@ class FirebaseFirestoreHelper {
                             data["activo"] as Boolean,
                             data["uri_image"].toString()
                         )
+                        intent = Intent(context, MainActivity::class.java)
                     } else {
                         //Talachero
                         user = User(
@@ -152,6 +155,7 @@ class FirebaseFirestoreHelper {
                             data["especialidad"].toString(),
                             data["uri_image"].toString()
                         )
+                        intent = Intent(context, ContractsActivity::class.java)
                     }
                     if (Objects.requireNonNull(document["activo"]) as Boolean) {
                         information.getMessage(
@@ -159,7 +163,7 @@ class FirebaseFirestoreHelper {
                                 .toString() + " " + user!!.apellidos
                         )
                         //Se debe redigir...
-                        val intent = Intent(context, MainActivity::class.java)
+
                         intent.putExtra(
                             "ROL",
                             user!!.tipo_user

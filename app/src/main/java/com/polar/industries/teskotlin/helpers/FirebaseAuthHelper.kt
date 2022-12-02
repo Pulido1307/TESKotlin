@@ -6,10 +6,12 @@ import android.content.Context
 import android.content.Intent
 import android.util.Log
 import android.widget.Toast
+import com.google.android.gms.tasks.OnCompleteListener
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
+import com.google.firebase.messaging.FirebaseMessaging
 import com.polar.industries.teskotlin.LoginActivity
 import com.polar.industries.teskotlin.interfaces.Information
 import java.util.*
@@ -23,6 +25,8 @@ class FirebaseAuthHelper {
         this.context = context
     }
 
+
+
     //Registrarse
     fun createUserEmailAndPassword(email: String?, password: String?, dialog: ProgressDialog, args: Array<String?>?, tipo: String?) {
         if (stringHelper.isNotEmptyCredentials(email, password!!)) {
@@ -34,6 +38,18 @@ class FirebaseAuthHelper {
                     (context as Activity?)!!
                 ) { task ->
                     if (task.isSuccessful) {
+                       /* var token: String = ""
+                        FirebaseMessaging.getInstance().token.addOnCompleteListener(
+                            OnCompleteListener { task ->
+                            if (!task.isSuccessful) {
+                                Log.w("TOKEN", "Fetching FCM registration token failed", task.exception)
+                                return@OnCompleteListener
+                            }
+
+                            // Get new FCM registration token
+                            token = task.result
+                        })*/
+
                         // Sign in success, update UI with the signed-in user's information
                         val user = mAuth.currentUser
                         //Creación de usuario

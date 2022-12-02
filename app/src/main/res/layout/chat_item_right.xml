@@ -33,7 +33,7 @@
                 android:fontFamily="@font/roboto_bold"
                 android:padding="10dp"
                 android:text="Ya me enfade de estar diseñando"
-                android:textColor="@color/black"></TextView>
+                android:textColor="@color/white"></TextView>
         </LinearLayout>
     </androidx.cardview.widget.CardView>
 </LinearLayout>

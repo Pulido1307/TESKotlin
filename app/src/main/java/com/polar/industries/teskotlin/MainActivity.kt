@@ -152,6 +152,7 @@ class MainActivity : AppCompatActivity(), Information, TalacheroInterface {
                 R.id.item_opc_main->{
                     val intent: Intent = Intent(this@MainActivity, OpcionesActivity::class.java)
                     startActivity(intent)
+                    finish()
                 }
             }
             true

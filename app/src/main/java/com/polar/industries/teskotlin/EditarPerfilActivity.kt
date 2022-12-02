@@ -161,8 +161,7 @@ class EditarPerfilActivity : AppCompatActivity(), Information {
             setInformation()
             onBackPressed()
         } else if (message == "Imagen eliminada") {
-            setImage("")
-            onBackPressed()
+            //setImage("")
         }
     }
 

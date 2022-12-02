@@ -17,7 +17,7 @@
             android:layout_height="wrap_content"
             android:layout_margin="20dp"
             android:text="@string/seleccione_sus_oficios"
-            android:textColor="@color/black"
+            android:textColor="@color/white"
             android:textSize="18sp"
             android:textStyle="bold" />
 
@@ -187,11 +187,11 @@
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/materialButton_registrar_especilidades"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="60dp"
                 android:layout_marginStart="10dp"
                 android:layout_marginTop="20dp"
                 android:layout_marginEnd="10dp"
-                android:backgroundTint="@color/black"
+                android:backgroundTint="@color/principal_yellow"
                 android:text="@string/registrar"
                 app:cornerRadius="5dp">
 
@@ -200,12 +200,12 @@
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/materialButton_salir_especialidades"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="60dp"
                 android:layout_marginStart="10dp"
                 android:layout_marginTop="10dp"
                 android:layout_marginEnd="10dp"
                 android:layout_marginBottom="20dp"
-                android:backgroundTint="@color/black"
+                android:backgroundTint="@color/principal_yellow"
                 android:text="@string/salir"
                 app:cornerRadius="5dp">
 

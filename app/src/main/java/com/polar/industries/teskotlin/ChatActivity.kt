@@ -3,6 +3,7 @@ package com.polar.industries.teskotlin
 import android.os.Bundle
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.isVisible
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.database.DataSnapshot
@@ -13,6 +14,7 @@ import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
 import com.polar.industries.teskotlin.adapters.AdapterChats
 import com.polar.industries.teskotlin.helpers.FirebaseAuthHelper
+import com.polar.industries.teskotlin.helpers.FirebaseFirestoreHelper
 import com.polar.industries.teskotlin.models.Chats
 import kotlinx.android.synthetic.main.activity_chat.*
 
@@ -26,6 +28,8 @@ class ChatActivity : AppCompatActivity() {
 
     private var idReceptor: String? = ""
     private var idUserEnvia: String? = ""
+    private lateinit var imageButtonPropuestaContrato: ImageButton
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -35,6 +39,7 @@ class ChatActivity : AppCompatActivity() {
         idReceptor = intent.getStringExtra("id")
         idUserEnvia = FirebaseAuthHelper.mAuth.currentUser!!.uid
 
+        imageButtonPropuestaContrato = findViewById(R.id.imageButtonPropuestaContrato)
 
         database = Firebase.database.getReference("Chats")
         recyclerViewChat.layoutManager = LinearLayoutManager(this@ChatActivity)
@@ -43,6 +48,11 @@ class ChatActivity : AppCompatActivity() {
         conversacionLista = arrayListOf()
 
         textViewDestinatarioChat.text = "${intent.getStringExtra("nombre")} ${intent.getStringExtra("apellidos")}"
+
+        if(FirebaseFirestoreHelper.user!!.tipo_user.equals("CLIENTE"))
+            imageButtonPropuestaContrato.isVisible = false
+
+
 
         getMensajes()
         actionButtons()
@@ -79,6 +89,14 @@ class ChatActivity : AppCompatActivity() {
                 Toast.makeText(this@ChatActivity, "¡Mensaje enviado!", Toast.LENGTH_SHORT).show()
                 editTextMensajeChat.setText("")
             }
+        }
+
+        imageButtonOnBackPress.setOnClickListener {
+            onBackPressed()
+        }
+
+        imageButtonPropuestaContrato.setOnClickListener {
+
         }
     }
 
