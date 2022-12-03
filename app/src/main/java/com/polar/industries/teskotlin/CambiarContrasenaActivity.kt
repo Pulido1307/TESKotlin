@@ -6,15 +6,18 @@ import android.os.Bundle
 import android.widget.Toast
 import com.polar.industries.teskotlin.helpers.FirebaseAuthHelper
 import com.polar.industries.teskotlin.helpers.FirebaseFirestoreHelper
+import com.polar.industries.teskotlin.interfaces.Information
 import kotlinx.android.synthetic.main.activity_cambiar_contrasena.*
 
-class CambiarContrasenaActivity : AppCompatActivity() {
+class CambiarContrasenaActivity : AppCompatActivity(), Information {
     private val firebaseAuthHelper: FirebaseAuthHelper = FirebaseAuthHelper()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_cambiar_contrasena)
         supportActionBar!!.hide()
+        firebaseAuthHelper.setContext(this)
+        firebaseAuthHelper.setOnInformationListener(this)
 
         buttonNewPass.setOnClickListener {
             var flagPassActual = false
@@ -57,11 +60,15 @@ class CambiarContrasenaActivity : AppCompatActivity() {
 
             if (flagPassActual && flagSizeNewPass && flagEqualsPass){
                 val dialog = ProgressDialog.show(this@CambiarContrasenaActivity, "", "Cambiando contraseña..", true)
-                firebaseAuthHelper.actualizarPassword(newPass, this@CambiarContrasenaActivity, dialog)
+                firebaseAuthHelper.actualizarPassword(newPass, this@CambiarContrasenaActivity, dialog, this, this)
             } else{
                 Toast.makeText(this, "Revise los datos ingresados", Toast.LENGTH_SHORT).show()
             }
         }
+    }
+
+    override fun getMessage(message: String?) {
+        Toast.makeText(this@CambiarContrasenaActivity, message, Toast.LENGTH_SHORT).show()
     }
 
 

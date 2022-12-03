@@ -129,19 +129,20 @@ class FirebaseAuthHelper {
         this.information = information
     }
 
-    public fun actualizarPassword(password: String, activity: Activity, dialog: ProgressDialog, context: Context, information: Information?){
+    public fun actualizarPassword(password: String, activity: Activity, dialog: ProgressDialog, context: Context, information: Information){
         val userCambiarPass = Firebase.auth.currentUser
         userCambiarPass!!.updatePassword(password).addOnCompleteListener {
            if(it.isSuccessful){
-               dialog.dismiss()
                FirebaseFirestoreHelper.user!!.password = password
                Toast.makeText(activity.baseContext, "Contraseña actualizada", Toast.LENGTH_SHORT).show()
-               firebaseFirestoreHelper.updatePassword(password, context, dialog)
+               firebaseFirestoreHelper.updatePassword(password, context, dialog, information)
                activity.finish()
            } else{
+               dialog.dismiss()
                Toast.makeText(activity.baseContext, "Error: ${it.exception}", Toast.LENGTH_LONG).show()
            }
         }.addOnFailureListener{
+            dialog.dismiss()
             Toast.makeText(activity.baseContext, "Error: $it", Toast.LENGTH_LONG).show()
         }
     }
