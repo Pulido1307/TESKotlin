@@ -5,8 +5,8 @@
     android:layout_height="match_parent"
     tools:context=".fragments.ContractsFinishedFragment">
 
-    <ListView
-        android:id="@+id/listView_ContractsFinished"
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerViewContractsFinished"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:dividerHeight="0.0000001dp"

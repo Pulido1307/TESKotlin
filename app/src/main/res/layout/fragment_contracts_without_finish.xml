@@ -5,11 +5,13 @@
     android:layout_height="match_parent"
     tools:context=".fragments.ContractsWithoutFinishFragment">
 
-    <ListView
-        android:id="@+id/listView_ContractsWithoutFinish"
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerContractsWithoutFinish"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:dividerHeight="0.0000001dp"
         tools:listitem="@layout/item_contract_without_finish" />
+
+
 
 </FrameLayout>

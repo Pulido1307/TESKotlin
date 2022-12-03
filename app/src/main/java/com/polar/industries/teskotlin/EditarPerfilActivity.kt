@@ -190,7 +190,7 @@ class EditarPerfilActivity : AppCompatActivity(), Information {
         val rm = Glide.with(applicationContext)
         if (image_url == "") {
             val placeholder =
-                BitmapFactory.decodeResource(applicationContext.resources, R.drawable.user)
+                BitmapFactory.decodeResource(applicationContext.resources, R.drawable.usuario)
             val circularBitmapDrawable = RoundedBitmapDrawableFactory.create(
                 applicationContext.resources, placeholder
             )

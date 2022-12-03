@@ -3,14 +3,11 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".fragments.ContractsRejectedFragment">
+    tools:context=".fragments.FragmentContratoProceso">
 
-    <!-- TODO: Update blank fragment layout -->
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerViewContractsRejected"
+        android:id="@+id/recyclerEnProceso"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:dividerHeight="0.0000001dp"
-        tools:listitem="@layout/item_contract_rejected" />
-
+        tools:listitem="@layout/item_contract_without_finish" />
 </FrameLayout>

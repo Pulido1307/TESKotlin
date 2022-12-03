@@ -1,5 +1,6 @@
 package com.polar.industries.teskotlin
 
+import android.content.Intent
 import android.os.Bundle
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
@@ -96,7 +97,15 @@ class ChatActivity : AppCompatActivity() {
         }
 
         imageButtonPropuestaContrato.setOnClickListener {
+            val intent: Intent = Intent(this@ChatActivity, PropuestaContratoActivity::class.java).apply {
+                putExtra("nombreC", intent.getStringExtra("nombre"))
+                putExtra("apellidosC", intent.getStringExtra("apellidos"))
+                putExtra("nombreT", FirebaseFirestoreHelper.user!!.nombre.toString())
+                putExtra("apellidosT", FirebaseFirestoreHelper.user!!.apellidos.toString())
+                putExtra("clienteUID", idReceptor)
+            }
 
+            startActivity(intent)
         }
     }
 

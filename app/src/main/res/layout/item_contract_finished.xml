@@ -41,7 +41,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_marginLeft="5dp"
-                        app:cardBackgroundColor="#43A047" />
+                        app:cardBackgroundColor="@color/principal_yellow" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -101,35 +101,6 @@
 
                 </LinearLayout>
 
-                <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="0.35"
-                    android:orientation="vertical"
-                    android:textAlignment="center">
-
-                    <androidx.constraintlayout.widget.ConstraintLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent">
-
-                        <ImageButton
-                            android:id="@+id/imageButton_Calif_ItemCF"
-                            android:layout_width="70dp"
-                            android:layout_height="70dp"
-                            android:background="@drawable/image_button_yellow"
-                            android:contentDescription="@string/todo"
-                            android:textAlignment="center"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent"
-                            app:srcCompat="@drawable/ic_twotone_star_24"
-                            tools:ignore="DuplicateSpeakableTextCheck,ImageContrastCheck"
-                            app:tint="@color/white" />
-
-                    </androidx.constraintlayout.widget.ConstraintLayout>
-
-                </LinearLayout>
             </LinearLayout>
 
         </LinearLayout>

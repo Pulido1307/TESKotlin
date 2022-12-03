@@ -10,6 +10,7 @@ import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
+import com.polar.industries.teskotlin.helpers.FirebaseFirestoreHelper
 import com.polar.industries.teskotlin.models.Propuestas
 import kotlinx.android.synthetic.main.activity_propuesta_contrato.*
 import java.time.LocalDateTime
@@ -39,10 +40,10 @@ class PropuestaContratoActivity : AppCompatActivity() {
             var flagMonto: Boolean = false
 
             var descripcionProblema: String = textInputLayoutDescripcionPropuesta.editText!!.text.toString()
-            var monto: Double = textInputLayoutCosto.editText!!.text.toString() as Double
+            var monto: Double = textInputLayoutCosto.editText!!.text.toString().toDouble()
 
             if(descripcionProblema.isNotEmpty()){
-                if (descripcionProblema.length > 31){
+                if (descripcionProblema.length > 10){
                     flagDescripcion = true
                 } else{
                     textInputLayoutDescripcionPropuesta.error = "Ingresa una descripción más detallada"
@@ -64,9 +65,10 @@ class PropuestaContratoActivity : AppCompatActivity() {
             if (flagDescripcion && flagMonto){
                 val date = LocalDateTime.now()
                     .format(DateTimeFormatter.ofPattern("MMM dd yyyy"))
-                val propuesta: Propuestas  = Propuestas(intent.getStringExtra("clienteUID"), intent.getStringExtra("talacheroUID"), monto, descripcionProblema, date,
+                val idPush = databasePropuesta.push().key
+                val propuesta: Propuestas  = Propuestas(idPush!!, intent.getStringExtra("clienteUID"), FirebaseFirestoreHelper.user!!.id.toString(), monto, descripcionProblema, date,
                 "PENDIENTE", intent.getStringExtra("nombreC") + " " + intent.getStringExtra("apellidosC"), intent.getStringExtra("nombreT") + " " + intent.getStringExtra("apellidosT") )
-                databasePropuesta.push().setValue(propuesta).addOnCompleteListener {
+                databasePropuesta.child(idPush).setValue(propuesta).addOnCompleteListener {
                     if (it.isSuccessful){
                         Toast.makeText(this, "Propuesta enviada", Toast.LENGTH_SHORT).show()
                         onBackPressed()

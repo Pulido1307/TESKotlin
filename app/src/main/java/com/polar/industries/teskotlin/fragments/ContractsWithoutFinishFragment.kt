@@ -1,11 +1,25 @@
 package com.polar.industries.teskotlin.fragments
 
+import android.app.Activity
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.ValueEventListener
+import com.google.firebase.database.ktx.database
+import com.google.firebase.ktx.Firebase
 import com.polar.industries.teskotlin.R
+import com.polar.industries.teskotlin.adapters.AdapterContratosSinFinalizar
+import com.polar.industries.teskotlin.helpers.FirebaseAuthHelper
+import com.polar.industries.teskotlin.helpers.FirebaseFirestoreHelper
+import com.polar.industries.teskotlin.models.Propuestas
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -22,6 +36,11 @@ class ContractsWithoutFinishFragment : Fragment() {
     private var param1: String? = null
     private var param2: String? = null
 
+    private lateinit var databaseContratos: DatabaseReference
+    private lateinit var recyclerContractsWithoutFinish: RecyclerView
+    private var listaPropuestas: ArrayList<Propuestas> = arrayListOf()
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
@@ -34,19 +53,68 @@ class ContractsWithoutFinishFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_contracts_without_finish, container, false)
+        val root: View = inflater.inflate(R.layout.fragment_contracts_without_finish, container, false)
+        databaseContratos = Firebase.database.getReference("Contratos")
+
+        recyclerContractsWithoutFinish = root.findViewById(R.id.recyclerContractsWithoutFinish)
+
+        recyclerContractsWithoutFinish.layoutManager = LinearLayoutManager(root.context)
+        recyclerContractsWithoutFinish.setHasFixedSize(true)
+
+
+        if (FirebaseFirestoreHelper.user!!.tipo_user!!.equals("CLIENTE")){
+            databaseContratos.addValueEventListener(object : ValueEventListener{
+                override fun onDataChange(snapshot: DataSnapshot) {
+                    if(snapshot.exists()){
+                        listaPropuestas.clear()
+                        for (propuestasSnapShot in snapshot.children){
+                            val propuestaActual = propuestasSnapShot.getValue(Propuestas::class.java)
+                            if((propuestaActual!!.status.equals("SIN FINALIZAR") || propuestaActual!!.status.equals("PENDIENTE")) && propuestaActual.clienteUID!!.equals(FirebaseFirestoreHelper.user!!.id)){
+                                listaPropuestas.add(propuestaActual)
+                            }
+                        }
+
+                        recyclerContractsWithoutFinish.adapter = AdapterContratosSinFinalizar(root.context, listaPropuestas, root.context as Activity)
+                    }
+                }
+
+                override fun onCancelled(error: DatabaseError) {
+                    Toast.makeText(root.context, "Ya se cayó más feo que la maquina", Toast.LENGTH_SHORT).show()
+                }
+
+            })
+        } else{
+            databaseContratos.addValueEventListener(object : ValueEventListener{
+                override fun onDataChange(snapshot: DataSnapshot) {
+                    if(snapshot.exists()){
+                        listaPropuestas.clear()
+                        for (propuestasSnapShot in snapshot.children){
+                            val propuestaActual = propuestasSnapShot.getValue(Propuestas::class.java)
+                            if(propuestaActual!!.status.equals("SIN FINALIZAR") && propuestaActual.talacheroUID!!.equals(FirebaseFirestoreHelper.user!!.id)){
+                                listaPropuestas.add(propuestaActual)
+                            }
+                        }
+
+                        recyclerContractsWithoutFinish.adapter = AdapterContratosSinFinalizar(root.context, listaPropuestas, root.context as Activity)
+                    }
+                }
+
+                override fun onCancelled(error: DatabaseError) {
+                    Toast.makeText(root.context, "Ya se cayó más feo que la maquina", Toast.LENGTH_SHORT).show()
+                }
+
+            })
+        }
+
+
+        return root
     }
 
+
+
+
+
     companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment ContractsWithoutFinishFragment.
-         */
         // TODO: Rename and change types and number of parameters
         @JvmStatic
         fun newInstance(param1: String, param2: String) =

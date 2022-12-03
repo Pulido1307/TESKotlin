@@ -5,7 +5,6 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
-import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
@@ -14,6 +13,8 @@ import com.google.android.material.tabs.TabLayout
 import com.polar.industries.teskotlin.fragments.ContractsFinishedFragment
 import com.polar.industries.teskotlin.fragments.ContractsRejectedFragment
 import com.polar.industries.teskotlin.fragments.ContractsWithoutFinishFragment
+
+import com.polar.industries.teskotlin.helpers.FirebaseFirestoreHelper
 
 class ContractsActivity : AppCompatActivity() {
 
@@ -36,6 +37,9 @@ class ContractsActivity : AppCompatActivity() {
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.prestador_servicios, menu)
+        if(FirebaseFirestoreHelper.user!!.tipo_user.equals("CLIENTE")){
+            menu!!.removeItem(R.id.item_menu_prestador)
+        }
         return true
     }
 
@@ -58,9 +62,14 @@ class ContractsActivity : AppCompatActivity() {
 
         // LoginFragment is the name of Fragment and the Login
         // is a title of tab
-        adapter.addFragment(ContractsWithoutFinishFragment(), "Pendientes")
-        adapter.addFragment(ContractsFinishedFragment(), "Finalizados")
-        adapter.addFragment(ContractsRejectedFragment(), "Rechazados")
+        if(FirebaseFirestoreHelper.user!!.tipo_user.equals("TALACHERO")){
+            adapter.addFragment(ContractsWithoutFinishFragment(), "Sin finalizar")
+            adapter.addFragment(ContractsFinishedFragment(), "Finalizados")
+            adapter.addFragment(ContractsRejectedFragment(), "Rechazados")
+        } else{
+            adapter.addFragment(ContractsWithoutFinishFragment(), "Pendientes")
+            adapter.addFragment(ContractsFinishedFragment(), "Finalizados")
+        }
 
         // setting adapter to view pager.
         viewpager.adapter = adapter

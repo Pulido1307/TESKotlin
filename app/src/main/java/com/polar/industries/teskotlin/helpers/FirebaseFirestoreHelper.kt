@@ -204,6 +204,23 @@ class FirebaseFirestoreHelper {
         }
     }
 
+
+    public fun updatePassword(pass:String, context: Context, dialog: ProgressDialog, information: Information){
+        val data: MutableMap<String, Any> = HashMap()
+        data["password"] = pass
+        UsuariosCollection.document(user!!.id!!).update(data).addOnCompleteListener{
+            dialog.dismiss()
+            information.getMessage("¡Datos actualizados!")
+        }.addOnFailureListener {
+            AlertDialogPersonalized().alertDialogInformacion(
+                "Datos no actualizados, verifica tu conexión a Internet",
+                context
+            )
+            information.getMessage("Datos no actualizados, verifica tu conexión a Internet")
+            dialog.dismiss()
+        }
+    }
+
     fun updateDataUser(
         dialog: ProgressDialog,
         context: Context?,

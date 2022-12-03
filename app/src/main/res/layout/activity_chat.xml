@@ -63,7 +63,7 @@
                     android:layout_gravity="center|center_horizontal|center_vertical"
                     android:layout_marginEnd="10dp"
                     android:text="@string/usuario"
-                    android:textColor="@color/black"
+                    android:textColor="@color/white"
                     android:textSize="18sp"
                     android:textStyle="bold" />
 

@@ -82,7 +82,6 @@ class MensajeriaActivity : AppCompatActivity(), Contacto {
     }
 
     override fun onBackPressed() {
-        Toast.makeText(this@MensajeriaActivity, "Me fui", Toast.LENGTH_SHORT).show()
         finish()
     }
 }

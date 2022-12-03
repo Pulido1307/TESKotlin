@@ -20,7 +20,7 @@
             android:background="@color/principal_yellow"
             app:navigationIcon="@drawable/ic_baseline_keyboard_arrow_left_24"
             app:title="Mensajes"
-            app:titleTextColor="@color/black" />
+            app:titleTextColor="@color/white" />
 
     </com.google.android.material.appbar.AppBarLayout>
 

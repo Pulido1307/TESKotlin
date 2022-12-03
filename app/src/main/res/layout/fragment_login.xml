@@ -74,17 +74,18 @@
             android:textColor="@color/white"></Button>
 
         <TextView
-            android:id="@+id/textView_SocialAccount"
+            android:id="@+id/textView_ForgotPass"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="30dp"
             android:layout_marginTop="15dp"
+            android:layout_marginRight="30dp"
             android:layout_marginBottom="10dp"
             android:gravity="center"
-            android:text="@string/usar_cuenta_social_para_iniciar_sesi_n"
-            android:textColor="@color/gray"
-            android:textSize="16sp"
-            android:textStyle="bold"
-            tools:ignore="TextContrastCheck"></TextView>
+            android:text="@string/olvidaste_tu_contrase_a"
+            android:textColor="@color/white"
+            android:textSize="18sp"
+            android:textStyle="bold"></TextView>
 
     </LinearLayout>
 
