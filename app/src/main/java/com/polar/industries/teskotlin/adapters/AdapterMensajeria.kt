@@ -10,6 +10,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.polar.industries.teskotlin.ChatActivity
 import com.polar.industries.teskotlin.R
 import com.polar.industries.teskotlin.models.User
@@ -33,6 +34,12 @@ class AdapterMensajeria(private val context: Context, private val listaMensajes:
         holder.cardViewContactoMensajeria.setOnClickListener {
             moveToChat(position)
         }
+
+        Glide.with(holder.imageViewUserMensajeria.context)
+            .load(mensajeActual.uriImage)
+            .placeholder(R.drawable.usuario)
+            .circleCrop()
+            .into(holder.imageViewUserMensajeria)
 
     }
 

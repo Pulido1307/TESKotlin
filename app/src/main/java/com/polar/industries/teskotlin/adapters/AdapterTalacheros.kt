@@ -11,6 +11,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.polar.industries.teskotlin.ChatActivity
 import com.polar.industries.teskotlin.R
 import com.polar.industries.teskotlin.models.User
@@ -31,6 +32,11 @@ class AdapterTalacheros(private val context: Context, private val listTalacheros
         holder.cardViewTalachero.setOnClickListener {
             moveToChat(position)
         }
+        Glide.with(holder.imageViewTalachero.context)
+            .load(talacheroActual.uriImage)
+            .placeholder(R.drawable.usuario)
+            .circleCrop()
+            .into(holder.imageViewTalachero)
     }
 
     private fun moveToChat(position: Int) {
