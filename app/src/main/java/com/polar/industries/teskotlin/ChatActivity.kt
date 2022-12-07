@@ -7,6 +7,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.DatabaseReference
@@ -30,6 +31,7 @@ class ChatActivity : AppCompatActivity() {
     private var idReceptor: String? = ""
     private var idUserEnvia: String? = ""
     private lateinit var imageButtonPropuestaContrato: ImageButton
+    private lateinit var imageViewUsuarioChat: ImageView
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -41,6 +43,7 @@ class ChatActivity : AppCompatActivity() {
         idUserEnvia = FirebaseAuthHelper.mAuth.currentUser!!.uid
 
         imageButtonPropuestaContrato = findViewById(R.id.imageButtonPropuestaContrato)
+        imageViewUsuarioChat = findViewById(R.id.imageViewUsuarioChat)
 
         database = Firebase.database.getReference("Chats")
         recyclerViewChat.layoutManager = LinearLayoutManager(this@ChatActivity)
@@ -54,6 +57,11 @@ class ChatActivity : AppCompatActivity() {
             imageButtonPropuestaContrato.isVisible = false
 
 
+        Glide.with(imageViewUsuarioChat)
+            .load(intent.getStringExtra("uri_image"))
+            .placeholder(R.drawable.usuario)
+            .circleCrop()
+            .into(imageViewUsuarioChat)
 
         getMensajes()
         actionButtons()

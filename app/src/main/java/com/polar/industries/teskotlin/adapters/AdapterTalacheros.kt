@@ -28,6 +28,7 @@ class AdapterTalacheros(private val context: Context, private val listTalacheros
 
         holder.textViewNombreCardCategoria.text = "${talacheroActual.nombre} ${talacheroActual.apellidos}"
         holder.textViewTelefonoCardCategoria.text = "${talacheroActual.telefono}"
+        holder.textViewEspecilidad.text = talacheroActual.especialidad
 
         holder.cardViewTalachero.setOnClickListener {
             moveToChat(position)
@@ -59,5 +60,6 @@ class AdapterTalacheros(private val context: Context, private val listTalacheros
         val imageViewTalachero: ImageView = view.findViewById(R.id.imageViewTalachero)
         val textViewNombreCardCategoria: TextView = view.findViewById(R.id.textViewNombreCardCategoria)
         val textViewTelefonoCardCategoria: TextView = view.findViewById(R.id.textViewTelefonoCardCategoria)
+        val textViewEspecilidad: TextView = view.findViewById(R.id.textViewEspecilidad)
     }
 }

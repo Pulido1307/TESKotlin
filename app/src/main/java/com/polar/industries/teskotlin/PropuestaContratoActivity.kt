@@ -25,6 +25,7 @@ class PropuestaContratoActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_propuesta_contrato)
 
+        title = "Propuesta de contrato"
         textViewTalacheroPropuesta.text = "${intent.getStringExtra("nombreT")!!.trim()} ${intent.getStringExtra("apellidosT")!!.trim()}"
         textViewNClientePropuesta.text = "${intent.getStringExtra("nombreC")!!.trim()} ${intent.getStringExtra("apellidosC")!!.trim()}"
 

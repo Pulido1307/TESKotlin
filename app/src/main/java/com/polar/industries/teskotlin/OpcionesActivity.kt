@@ -4,6 +4,7 @@ import android.app.ProgressDialog
 import android.content.Intent
 import android.graphics.BitmapFactory
 import android.os.Bundle
+import android.view.View
 import android.widget.ImageView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -25,8 +26,14 @@ class OpcionesActivity : AppCompatActivity()  {
 
         imageViewUserOpc = findViewById(R.id.imageViewUserOpc)
 
+        if(FirebaseFirestoreHelper.user!!.tipo_user.equals("TALACHERO")){
+            carViewContratos.visibility = View.GONE
+        }
+
         getInformationUser()
         actionButtons()
+
+
     }
 
     private fun actionButtons() {

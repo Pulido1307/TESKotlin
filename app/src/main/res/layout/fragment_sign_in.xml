@@ -225,7 +225,7 @@
                 android:clickable="true"
                 android:focusable="true"
                 android:inputType="textCapWords"
-                android:textSize="16sp"
+                android:textSize="14sp"
                 tools:ignore="TextContrastCheck,DuplicateSpeakableTextCheck" />
         </com.google.android.material.textfield.TextInputLayout>
 
