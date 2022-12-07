@@ -73,7 +73,7 @@ class ContractsFinishedFragment : Fragment() {
                                 listaPropuestas.add(propuestaActual)
                             }
                         }
-
+                        listaPropuestas.reverse()
                         recyclerViewContractsFinished.adapter = AdapterContratosFinalizados(root.context, listaPropuestas, root.context as Activity)
                     }
                 }
@@ -95,7 +95,7 @@ class ContractsFinishedFragment : Fragment() {
                                 listaPropuestas.add(propuestaActual)
                             }
                         }
-
+                        listaPropuestas.reverse()
                         recyclerViewContractsFinished.adapter = AdapterContratosFinalizados(root.context, listaPropuestas, root.context as Activity)
                     }
                 }

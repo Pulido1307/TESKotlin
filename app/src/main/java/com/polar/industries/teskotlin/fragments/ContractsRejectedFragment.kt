@@ -92,7 +92,7 @@ class ContractsRejectedFragment : Fragment() {
                                listaPropuestas.add(propuestaActual)
                            }
                        }
-
+                       listaPropuestas.reverse()
                        recyclerViewContractsRejected.adapter = AdaptadorContratoRechazado(root.context, listaPropuestas)
                    }
                }

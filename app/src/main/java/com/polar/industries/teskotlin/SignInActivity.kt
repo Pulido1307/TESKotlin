@@ -95,8 +95,8 @@ class SignInActivity : AppCompatActivity(), Information {
             dialog.findViewById<CheckBox>(R.id.radioButton_plomeria_especialidad)
         val radioButton_mudanza_especialidad =
             dialog.findViewById<CheckBox>(R.id.radioButton_mudanza_especialidad)
-        val radioButton_otro_especialidad =
-            dialog.findViewById<CheckBox>(R.id.radioButton_otro_especialidad)
+        /*val radioButton_otro_especialidad =
+            dialog.findViewById<CheckBox>(R.id.radioButton_otro_especialidad)*/
         val textInputLayout_otro_especialidad =
             dialog.findViewById<TextInputLayout>(R.id.textInputLayout_otro_especialidad)
         val materialButton_registrar_especilidades =
@@ -148,7 +148,7 @@ class SignInActivity : AppCompatActivity(), Information {
                 especialidadesSelecciondas = especialidadesSelecciondas + "Mudanza, "
             }
             var otr = false
-            if (radioButton_otro_especialidad.isChecked) {
+            /*if (radioButton_otro_especialidad.isChecked) {
                 seleccion = true
                 val otro = textInputLayout_otro_especialidad.editText!!.text.toString()
                 if (!otro.isEmpty()) {
@@ -157,7 +157,7 @@ class SignInActivity : AppCompatActivity(), Information {
                 } else {
                     seleccion = false
                 }
-            }
+            }*/
             if (seleccion) {
                 if (otr) {
                     textInputLayout_Especialidad!!.editText!!.setText(

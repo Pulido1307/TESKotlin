@@ -201,7 +201,6 @@ class SignInFragment : Fragment(), Information {
             bEspecialidad = true
         }
 
-        Toast.makeText(root.context, "$bEspecialidad", Toast.LENGTH_LONG).show()
 
         return bNombre && bApellidos && bTelefono && bUbicacion && bEspecialidad && bEmail && bPass
     }
@@ -255,8 +254,8 @@ class SignInFragment : Fragment(), Information {
             dialog.findViewById<CheckBox>(R.id.radioButton_plomeria_especialidad)
         val radioButton_mudanza_especialidad =
             dialog.findViewById<CheckBox>(R.id.radioButton_mudanza_especialidad)
-        val radioButton_otro_especialidad =
-            dialog.findViewById<CheckBox>(R.id.radioButton_otro_especialidad)
+        /*val radioButton_otro_especialidad =
+            dialog.findViewById<CheckBox>(R.id.radioButton_otro_especialidad)*/
         val textInputLayout_otro_especialidad =
             dialog.findViewById<TextInputLayout>(R.id.textInputLayout_otro_especialidad)
         val materialButton_registrar_especilidades =
@@ -308,7 +307,7 @@ class SignInFragment : Fragment(), Information {
                 especialidadesSelecciondas = especialidadesSelecciondas + "Mudanza, "
             }
             var otr = false
-            if (radioButton_otro_especialidad.isChecked) {
+            /*if (radioButton_otro_especialidad.isChecked) {
                 seleccion = true
                 val otro = textInputLayout_otro_especialidad.editText!!.text.toString()
                 if (!otro.isEmpty()) {
@@ -317,7 +316,7 @@ class SignInFragment : Fragment(), Information {
                 } else {
                     seleccion = false
                 }
-            }
+            }*/
             if (seleccion) {
                 if (otr) {
                     textField_Speciality_sign_in!!.editText!!.setText(

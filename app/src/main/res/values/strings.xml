@@ -120,4 +120,7 @@
     <string name="prestador_de_servicios">Prestador de servicio:</string>
     <string name="descripci_n_del_arreglo">Descripción del arreglo</string>
     <string name="monto_a_cobrar">Monto a cobrar</string>
+    <string name="descripci_n_del_problema">Descripción del problema</string>
+    <string name="_350_00">$ 350.00</string>
+    <string name="tuber_a_rota">Tubería rota</string>
 </resources>

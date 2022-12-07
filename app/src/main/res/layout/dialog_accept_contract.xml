@@ -16,6 +16,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="20dp"
+            android:fontFamily="@font/roboto_bold"
             android:text="@string/propuesta_del_contrato"
             android:textColor="@color/white"
             android:textSize="18sp"
@@ -25,23 +26,64 @@
 
     <TextView
         android:id="@+id/textView_propuesta_accept_contract2"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
         android:layout_marginTop="5dp"
-        android:text="@string/aceptar_contrato"
+        android:fontFamily="@font/roboto_bold"
+        android:text="@string/descripci_n_del_problema"
         android:textColor="@color/black"
         android:textSize="18sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/textView_propuestaNombre"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginEnd="5dp"
+        android:fontFamily="@font/roboto_light"
+        android:text="@string/antonio_pulido"
+        android:textColor="@color/black"
+        android:textSize="16sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/textView_propuestaProblema"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginEnd="5dp"
+        android:fontFamily="@font/roboto_light"
+        android:text="@string/tuber_a_rota"
+        android:textColor="@color/black"
+        android:textSize="16sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/textView_propuestaPrecio"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginEnd="5dp"
+        android:fontFamily="@font/roboto_light"
+        android:text="@string/_350_00"
+        android:textColor="@color/black"
+        android:textSize="16sp"
         android:textStyle="bold" />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="15dp"
         android:orientation="horizontal"
         android:weightSum="1">
 
         <com.google.android.material.button.MaterialButton
-            android:id="@+id/materialButton_desc_cliente3"
+            android:id="@+id/materialButton_rechzarPropuesta"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
@@ -53,12 +95,12 @@
             android:paddingTop="10dp"
             android:paddingBottom="10dp"
             android:text="@string/rechazar"
-            app:cornerRadius="5dp">
+            app:cornerRadius="10dp">
 
         </com.google.android.material.button.MaterialButton>
 
         <com.google.android.material.button.MaterialButton
-            android:id="@+id/materialButton_desc_cliente4"
+            android:id="@+id/materialButton_aceptarPropuesta"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
@@ -70,7 +112,7 @@
             android:paddingTop="10dp"
             android:paddingBottom="10dp"
             android:text="@string/aceptar"
-            app:cornerRadius="5dp">
+            app:cornerRadius="10dp">
 
         </com.google.android.material.button.MaterialButton>
     </LinearLayout>

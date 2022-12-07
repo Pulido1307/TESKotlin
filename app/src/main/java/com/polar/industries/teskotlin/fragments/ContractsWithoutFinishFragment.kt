@@ -1,11 +1,16 @@
 package com.polar.industries.teskotlin.fragments
 
 import android.app.Activity
+import android.app.AlertDialog
+import android.app.Dialog
+import android.content.Context
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ArrayAdapter
+import android.widget.AutoCompleteTextView
 import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -20,6 +25,7 @@ import com.polar.industries.teskotlin.adapters.AdapterContratosSinFinalizar
 import com.polar.industries.teskotlin.helpers.FirebaseAuthHelper
 import com.polar.industries.teskotlin.helpers.FirebaseFirestoreHelper
 import com.polar.industries.teskotlin.models.Propuestas
+import kotlinx.android.synthetic.main.dialog_accept_contract.view.*
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -69,11 +75,17 @@ class ContractsWithoutFinishFragment : Fragment() {
                         listaPropuestas.clear()
                         for (propuestasSnapShot in snapshot.children){
                             val propuestaActual = propuestasSnapShot.getValue(Propuestas::class.java)
+
+                            if (propuestaActual!!.status.equals("PENDIENTE") && propuestaActual.clienteUID!!.equals(FirebaseFirestoreHelper.user!!.id)){
+                                showDialogContracts(root.context, propuestaActual)
+                            }
+
                             if((propuestaActual!!.status.equals("SIN FINALIZAR") || propuestaActual!!.status.equals("PENDIENTE")) && propuestaActual.clienteUID!!.equals(FirebaseFirestoreHelper.user!!.id)){
                                 listaPropuestas.add(propuestaActual)
                             }
                         }
 
+                        listaPropuestas.reverse()
                         recyclerContractsWithoutFinish.adapter = AdapterContratosSinFinalizar(root.context, listaPropuestas, root.context as Activity)
                     }
                 }
@@ -94,7 +106,7 @@ class ContractsWithoutFinishFragment : Fragment() {
                                 listaPropuestas.add(propuestaActual)
                             }
                         }
-
+                        listaPropuestas.reverse()
                         recyclerContractsWithoutFinish.adapter = AdapterContratosSinFinalizar(root.context, listaPropuestas, root.context as Activity)
                     }
                 }
@@ -105,14 +117,67 @@ class ContractsWithoutFinishFragment : Fragment() {
 
             })
         }
-
-
         return root
     }
 
+    private fun showDialogContracts(context: Context, contratoActual: Propuestas){
+        val builder: AlertDialog.Builder = AlertDialog.Builder(context)
+        val view: View = layoutInflater.inflate(R.layout.dialog_accept_contract, null)
+        builder.setView(view)
+
+        val dialog: Dialog = builder.create()
+        dialog.setCancelable(false)
+        dialog.show()
+
+        view.textView_propuestaNombre.text = "${contratoActual.nombreTalachero} ${contratoActual.nombreTalachero}"
+        view.textView_propuestaProblema.text = "${contratoActual.descripcionArreglo}"
+        view.textView_propuestaPrecio.text = "$ ${contratoActual.monto}"
+
+        view.materialButton_aceptarPropuesta.setOnClickListener{
+            aceptarContrato(context, contratoActual)
+            dialog.dismiss()
+        }
+
+        view.materialButton_rechzarPropuesta.setOnClickListener {
+            rechazarContrato(context, contratoActual)
+            dialog.dismiss()
+        }
+    }
 
 
+    private fun aceptarContrato(context: Context, contratoActual: Propuestas){
+        Toast.makeText(context, "Acepto el contrato ", Toast.LENGTH_SHORT).show()
+        contratoActual.status = "SIN FINALIZAR"
+        val childUpdates = hashMapOf<String, Any>(
+            "clienteUID" to contratoActual.clienteUID!!,
+            "descripcionArreglo" to contratoActual.descripcionArreglo!!,
+            "fecha" to contratoActual.fecha!!,
+            "monto" to contratoActual.monto!!,
+            "nombreCliente" to contratoActual.nombreCliente!!,
+            "nombreTalachero" to contratoActual.nombreTalachero!!,
+            "status" to contratoActual.status!!,
+            "talacheroUID" to contratoActual.talacheroUID!!,
+            "uidContrato" to contratoActual.uidContrato!!
+        )
+        databaseContratos.child(contratoActual.uidContrato).updateChildren(childUpdates)
+    }
 
+    private fun rechazarContrato(context: Context, contratoActual: Propuestas){
+        Toast.makeText(context, "Rechazando el contrato", Toast.LENGTH_SHORT).show()
+        contratoActual.status = "RECHAZADO"
+        val childUpdates = hashMapOf<String, Any>(
+            "clienteUID" to contratoActual.clienteUID!!,
+            "descripcionArreglo" to contratoActual.descripcionArreglo!!,
+            "fecha" to contratoActual.fecha!!,
+            "monto" to contratoActual.monto!!,
+            "nombreCliente" to contratoActual.nombreCliente!!,
+            "nombreTalachero" to contratoActual.nombreTalachero!!,
+            "status" to contratoActual.status!!,
+            "talacheroUID" to contratoActual.talacheroUID!!,
+            "uidContrato" to contratoActual.uidContrato!!
+        )
+        databaseContratos.child(contratoActual.uidContrato).updateChildren(childUpdates)
+    }
 
     companion object {
         // TODO: Rename and change types and number of parameters

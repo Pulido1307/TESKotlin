@@ -153,14 +153,6 @@
                 android:orientation="horizontal"
                 android:weightSum="1">
 
-                <CheckBox
-                    android:id="@+id/radioButton_otro_especialidad"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="0.5"
-                    android:backgroundTint="@color/principal_yellow"
-                    android:text="@string/otro" />
-
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/textInputLayout_otro_especialidad"
                     style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
@@ -169,18 +161,7 @@
                     android:layout_weight="0.5"
                     android:backgroundTint="@color/principal_yellow"
                     app:boxStrokeColor="@color/principal_yellow"
-                    app:hintTextColor="@color/principal_yellow">
-
-                    <EditText
-                        android:id="@+id/editText_OtroOficio"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:hint="@string/escriba_el_oficio"
-                        android:importantForAutofill="no"
-                        android:inputType="textEmailAddress"
-                        android:visibility="visible"
-                        tools:ignore="SpeakableTextPresentCheck" />
-                </com.google.android.material.textfield.TextInputLayout>
+                    app:hintTextColor="@color/principal_yellow"/>
 
             </LinearLayout>
 

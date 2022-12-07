@@ -405,8 +405,7 @@ class MainActivity : AppCompatActivity(), Information, TalacheroInterface {
             dialog.findViewById<CheckBox>(R.id.radioButton_plomeria_especialidad)
         val radioButton_mudanza_especialidad =
             dialog.findViewById<CheckBox>(R.id.radioButton_mudanza_especialidad)
-        val radioButton_otro_especialidad =
-            dialog.findViewById<CheckBox>(R.id.radioButton_otro_especialidad)
+
         val textInputLayout_otro_especialidad =
             dialog.findViewById<TextInputLayout>(R.id.textInputLayout_otro_especialidad)
         val materialButton_registrar_especilidades =
@@ -457,7 +456,7 @@ class MainActivity : AppCompatActivity(), Information, TalacheroInterface {
                 seleccion = true
                 especialidadesSelecciondas = especialidadesSelecciondas + "Mudanza, "
             }
-            if (radioButton_otro_especialidad.isChecked) {
+            /*if (radioButton_otro_especialidad.isChecked) {
                 seleccion = true
                 val otro = textInputLayout_otro_especialidad.editText!!.text.toString()
                 if (!otro.isEmpty()) {
@@ -465,7 +464,7 @@ class MainActivity : AppCompatActivity(), Information, TalacheroInterface {
                 } else {
                     seleccion = false
                 }
-            }
+            }*/
             if (seleccion) {
                 textInputLayout_Especialidad.editText!!
                     .setText(
