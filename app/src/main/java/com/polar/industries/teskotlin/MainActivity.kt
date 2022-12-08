@@ -6,6 +6,9 @@ import android.content.Intent
 import android.graphics.BitmapFactory
 import android.net.Uri
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
+import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
@@ -36,6 +39,7 @@ import com.polar.industries.teskotlin.helpers.FirebaseStorageHelper
 import com.polar.industries.teskotlin.helpers.ImagesCompressHelper
 import com.polar.industries.teskotlin.interfaces.Information
 import com.polar.industries.teskotlin.interfaces.TalacheroInterface
+import com.polar.industries.teskotlin.interfaces.TalacherosFiltrados
 import com.polar.industries.teskotlin.models.Contrato
 import com.polar.industries.teskotlin.models.Especialidad
 import com.polar.industries.teskotlin.models.User
@@ -44,8 +48,9 @@ import kotlinx.android.synthetic.main.activity_main.*
 import java.io.File
 import java.io.IOException
 import java.util.*
+import kotlin.collections.ArrayList
 
-class MainActivity : AppCompatActivity(), Information, TalacheroInterface {
+class MainActivity : AppCompatActivity(), Information, TalacheroInterface, TalacherosFiltrados {
     private var imagen: File? = null
     private var tipo: String? = null
     private var textView_Nombre: TextView? = null
@@ -97,14 +102,11 @@ class MainActivity : AppCompatActivity(), Information, TalacheroInterface {
         buttons()*/
         supportActionBar!!.hide()
         databaseEspecialidad = Firebase.database.getReference("Especialidad")
-        configurationRecycler()
-        actionsButtons()
 
+        actionsButtons()
 
         val progressDialog = ProgressDialog.show(this@MainActivity, "", "Cargando...", true)
         firebaseFirestoreHelper.readTalachero(this@MainActivity, progressDialog)
-
-
     }
 
     private fun configurationRecycler() {
@@ -119,7 +121,7 @@ class MainActivity : AppCompatActivity(), Information, TalacheroInterface {
                         listaEspecilidad.add(especialidadActual!!)
                     }
 
-                    recyclerViewEspecialidades.adapter = AdapterEspecialidad(this@MainActivity, listaEspecilidad)
+                    recyclerViewEspecialidades.adapter = AdapterEspecialidad(this@MainActivity, listaEspecilidad, listaTrabajadores, this@MainActivity)
                 }
             }
 
@@ -127,8 +129,6 @@ class MainActivity : AppCompatActivity(), Information, TalacheroInterface {
                 Toast.makeText(this@MainActivity, "Fallo en la comunicación $error",  Toast.LENGTH_SHORT).show()
             }
         })
-
-
     }
 
     override fun getTalacheros(talacheros: ArrayList<User>) {
@@ -138,6 +138,10 @@ class MainActivity : AppCompatActivity(), Information, TalacheroInterface {
             adapterTalachero = AdapterTalacheros(this@MainActivity, listaTrabajadores, this@MainActivity)
             recyclerCategoria.layoutManager = GridLayoutManager(this@MainActivity, 2)
             recyclerCategoria.adapter = adapterTalachero
+
+            configurationRecycler()
+
+            textInputLayoutBuscarMain.editText!!.addTextChangedListener(textWatcher)
         }
     }
 
@@ -585,6 +589,56 @@ class MainActivity : AppCompatActivity(), Information, TalacheroInterface {
         }
     }
 
+    override fun getTalacherosFiltrados(talacheros: ArrayList<User>, progressDialog: ProgressDialog, especialidad:String) {
+        listaTrabajadores = talacheros
 
+        adapterTalachero = AdapterTalacheros(this@MainActivity, listaTrabajadores, this@MainActivity)
+        recyclerCategoria.layoutManager = GridLayoutManager(this@MainActivity, 2)
+        recyclerCategoria.adapter = adapterTalachero
+        progressDialog.dismiss()
 
+        if(listaTrabajadores.size==0){
+            textViewServicios.text = "No hay talacheros disponibles de " +especialidad
+        }else{
+            textViewServicios.text = "Servicios"
+        }
+    }
+
+    private val textWatcher = object : TextWatcher {
+        override fun afterTextChanged(s: Editable?) {
+            Log.e("editable", s.toString())
+            if (s!!.length > 4) {
+                var listaTrabajadoresAux: java.util.ArrayList<User> = arrayListOf()
+                var buscar = textInputLayoutBuscarMain.editText!!.text.toString()
+                Log.e("Buscar", buscar.toString())
+                for(trabajador in listaTrabajadores){
+                    if(trabajador.especialidad!!.contains(buscar)
+                        || trabajador.nombre!!.contains(buscar)
+                        || trabajador.apellidos!!.contains(buscar)
+                        || trabajador.telefono!!.contains(buscar)){
+                        listaTrabajadoresAux.add(trabajador)
+                        Log.e("Trabajador", trabajador.nombre.toString())
+                    }
+                }
+                adapterTalachero = AdapterTalacheros(this@MainActivity, listaTrabajadoresAux, this@MainActivity)
+                recyclerCategoria.layoutManager = GridLayoutManager(this@MainActivity, 2)
+                recyclerCategoria.adapter = adapterTalachero
+
+                if(listaTrabajadoresAux.size==0){
+                    textViewServicios.text = "No hay talacheros con " + s.toString()
+                }else{
+                    textViewServicios.text = "Servicios"
+                }
+            }
+            if(s!!.length <= 4){
+                adapterTalachero = AdapterTalacheros(this@MainActivity, listaTrabajadores, this@MainActivity)
+                recyclerCategoria.layoutManager = GridLayoutManager(this@MainActivity, 2)
+                recyclerCategoria.adapter = adapterTalachero
+            }
+        }
+        override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+        }
+        override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+        }
+    }
 }
